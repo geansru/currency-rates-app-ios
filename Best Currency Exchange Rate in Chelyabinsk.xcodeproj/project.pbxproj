@@ -14,6 +14,17 @@
 		D55648611BA80F3B00EFF0D0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D55648601BA80F3B00EFF0D0 /* Images.xcassets */; };
 		D55648641BA80F3B00EFF0D0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D55648621BA80F3B00EFF0D0 /* LaunchScreen.xib */; };
 		D55648701BA80F3B00EFF0D0 /* Best_Currency_Exchange_Rate_in_ChelyabinskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556486F1BA80F3B00EFF0D0 /* Best_Currency_Exchange_Rate_in_ChelyabinskTests.swift */; };
+		D556487A1BA80F6600EFF0D0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D55648791BA80F6600EFF0D0 /* libxml2.dylib */; };
+		D556487C1BA80F8F00EFF0D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D556487B1BA80F8F00EFF0D0 /* MapKit.framework */; };
+		D5852AFC1BA8164D00C069D4 /* CSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852AFA1BA8164D00C069D4 /* CSS.swift */; };
+		D5852AFD1BA8164D00C069D4 /* Kanna.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852AFB1BA8164D00C069D4 /* Kanna.swift */; };
+		D5852B011BA8166B00C069D4 /* libxmlHTMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852AFE1BA8166B00C069D4 /* libxmlHTMLDocument.swift */; };
+		D5852B021BA8166B00C069D4 /* libxmlHTMLNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852AFF1BA8166B00C069D4 /* libxmlHTMLNode.swift */; };
+		D5852B031BA8166B00C069D4 /* libxmlParserOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852B001BA8166B00C069D4 /* libxmlParserOption.swift */; };
+		D5852B051BA816E200C069D4 /* HTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852B041BA816E200C069D4 /* HTMLParser.swift */; };
+		D5852B071BA81B0200C069D4 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D5852B061BA81B0200C069D4 /* libxml2.2.dylib */; };
+		D5852B0A1BA8566500C069D4 /* Bank.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852B091BA8566500C069D4 /* Bank.swift */; };
+		D5852B0E1BA8681F00C069D4 /* Downloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852B0D1BA8681F00C069D4 /* Downloader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +49,20 @@
 		D55648691BA80F3B00EFF0D0 /* Best Currency Exchange Rate in ChelyabinskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Best Currency Exchange Rate in ChelyabinskTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D556486E1BA80F3B00EFF0D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D556486F1BA80F3B00EFF0D0 /* Best_Currency_Exchange_Rate_in_ChelyabinskTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Best_Currency_Exchange_Rate_in_ChelyabinskTests.swift; sourceTree = "<group>"; };
+		D55648791BA80F6600EFF0D0 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		D556487B1BA80F8F00EFF0D0 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D556487D1BA80FD000EFF0D0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		D556487E1BA80FD000EFF0D0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D556487F1BA8116B00EFF0D0 /* Kanna-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kanna-Bridging-Header.h"; sourceTree = "<group>"; };
+		D5852AFA1BA8164D00C069D4 /* CSS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSS.swift; sourceTree = "<group>"; };
+		D5852AFB1BA8164D00C069D4 /* Kanna.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kanna.swift; sourceTree = "<group>"; };
+		D5852AFE1BA8166B00C069D4 /* libxmlHTMLDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = libxmlHTMLDocument.swift; sourceTree = "<group>"; };
+		D5852AFF1BA8166B00C069D4 /* libxmlHTMLNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = libxmlHTMLNode.swift; sourceTree = "<group>"; };
+		D5852B001BA8166B00C069D4 /* libxmlParserOption.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = libxmlParserOption.swift; sourceTree = "<group>"; };
+		D5852B041BA816E200C069D4 /* HTMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTMLParser.swift; sourceTree = "<group>"; };
+		D5852B061BA81B0200C069D4 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
+		D5852B091BA8566500C069D4 /* Bank.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bank.swift; sourceTree = "<group>"; };
+		D5852B0D1BA8681F00C069D4 /* Downloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Downloader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +70,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D556487A1BA80F6600EFF0D0 /* libxml2.dylib in Frameworks */,
+				D5852B071BA81B0200C069D4 /* libxml2.2.dylib in Frameworks */,
+				D556487C1BA80F8F00EFF0D0 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +89,9 @@
 		D55648491BA80F3900EFF0D0 = {
 			isa = PBXGroup;
 			children = (
+				D5852B061BA81B0200C069D4 /* libxml2.2.dylib */,
+				D556487B1BA80F8F00EFF0D0 /* MapKit.framework */,
+				D55648791BA80F6600EFF0D0 /* libxml2.dylib */,
 				D55648541BA80F3900EFF0D0 /* Best Currency Exchange Rate in Chelyabinsk */,
 				D556486C1BA80F3B00EFF0D0 /* Best Currency Exchange Rate in ChelyabinskTests */,
 				D55648531BA80F3900EFF0D0 /* Products */,
@@ -79,7 +110,11 @@
 		D55648541BA80F3900EFF0D0 /* Best Currency Exchange Rate in Chelyabinsk */ = {
 			isa = PBXGroup;
 			children = (
+				D5852B0B1BA867DC00C069D4 /* Downloader */,
+				D5852B081BA8565400C069D4 /* Model */,
 				D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */,
+				D5852B0C1BA8680900C069D4 /* Kanna */,
+				D556487F1BA8116B00EFF0D0 /* Kanna-Bridging-Header.h */,
 				D55648591BA80F3A00EFF0D0 /* FirstViewController.swift */,
 				D556485B1BA80F3A00EFF0D0 /* SecondViewController.swift */,
 				D556485D1BA80F3A00EFF0D0 /* Main.storyboard */,
@@ -113,6 +148,35 @@
 				D556486E1BA80F3B00EFF0D0 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D5852B081BA8565400C069D4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D5852B091BA8566500C069D4 /* Bank.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D5852B0B1BA867DC00C069D4 /* Downloader */ = {
+			isa = PBXGroup;
+			children = (
+				D5852B0D1BA8681F00C069D4 /* Downloader.swift */,
+			);
+			name = Downloader;
+			sourceTree = "<group>";
+		};
+		D5852B0C1BA8680900C069D4 /* Kanna */ = {
+			isa = PBXGroup;
+			children = (
+				D5852B041BA816E200C069D4 /* HTMLParser.swift */,
+				D5852AFE1BA8166B00C069D4 /* libxmlHTMLDocument.swift */,
+				D5852AFF1BA8166B00C069D4 /* libxmlHTMLNode.swift */,
+				D5852B001BA8166B00C069D4 /* libxmlParserOption.swift */,
+				D5852AFA1BA8164D00C069D4 /* CSS.swift */,
+				D5852AFB1BA8164D00C069D4 /* Kanna.swift */,
+			);
+			name = Kanna;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -164,6 +228,11 @@
 				TargetAttributes = {
 					D55648511BA80F3900EFF0D0 = {
 						CreatedOnToolsVersion = 6.4;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					D55648681BA80F3B00EFF0D0 = {
 						CreatedOnToolsVersion = 6.4;
@@ -215,7 +284,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5852B0E1BA8681F00C069D4 /* Downloader.swift in Sources */,
+				D5852B051BA816E200C069D4 /* HTMLParser.swift in Sources */,
 				D556485C1BA80F3A00EFF0D0 /* SecondViewController.swift in Sources */,
+				D5852B031BA8166B00C069D4 /* libxmlParserOption.swift in Sources */,
+				D5852B021BA8166B00C069D4 /* libxmlHTMLNode.swift in Sources */,
+				D5852AFC1BA8164D00C069D4 /* CSS.swift in Sources */,
+				D5852AFD1BA8164D00C069D4 /* Kanna.swift in Sources */,
+				D5852B011BA8166B00C069D4 /* libxmlHTMLDocument.swift in Sources */,
+				D5852B0A1BA8566500C069D4 /* Bank.swift in Sources */,
 				D55648581BA80F3A00EFF0D0 /* AppDelegate.swift in Sources */,
 				D556485A1BA80F3A00EFF0D0 /* FirstViewController.swift in Sources */,
 			);
@@ -244,6 +321,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D556485E1BA80F3A00EFF0D0 /* Base */,
+				D556487D1BA80FD000EFF0D0 /* ru */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -252,6 +330,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D55648631BA80F3B00EFF0D0 /* Base */,
+				D556487E1BA80FD000EFF0D0 /* ru */,
 			);
 			name = LaunchScreen.xib;
 			sourceTree = "<group>";
@@ -344,9 +423,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"${SDKROOT}/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "Best Currency Exchange Rate in Chelyabinsk/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Best Currency Exchange Rate in Chelyabinsk/Kanna-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -354,9 +439,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"${SDKROOT}/usr/include/libxml2",
+				);
 				INFOPLIST_FILE = "Best Currency Exchange Rate in Chelyabinsk/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Best Currency Exchange Rate in Chelyabinsk/Kanna-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -413,6 +504,7 @@
 				D55648751BA80F3B00EFF0D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D55648761BA80F3B00EFF0D0 /* Build configuration list for PBXNativeTarget "Best Currency Exchange Rate in ChelyabinskTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +513,7 @@
 				D55648781BA80F3B00EFF0D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
