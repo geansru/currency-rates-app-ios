@@ -20,43 +20,48 @@ class Bank {
     var workingHours = ""
     
     init() { }
-    init(table: XMLElement) {
-        parseData(table)
+    init(row: XMLElement) {
+        parseRow(row)
     }
     
-    private func makeDouble(text: String!) -> Double {
+    private func makeDouble(var text: String!) -> Double {
         var result: Double = 0.0
-        if let value = text { result = (text as NSString).doubleValue }
+        text = text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+        text = text?.stringByReplacingOccurrencesOfString(",", withString: ".", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        if let value = text {
+//            print("'\(value)' -> ")
+            result = (text as NSString).doubleValue
+        }
+//        println(result)
         return result
     }
     private func parseBankRequisites(element: XMLElement) {
         if let text = element.text {
-//            println(__FUNCTION__)
+            let whiteSpaces = NSCharacterSet.whitespaceCharacterSet()
             // Get bank name
             let link = element.css("a")
             if let a = link.first {
-                uri = a["href"]!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
-                name = a.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                uri = a["href"]!.stringByTrimmingCharactersInSet(whiteSpaces)
+                name = a.text!.stringByTrimmingCharactersInSet(whiteSpaces)
             }
+//            println(name)
             
             // Get bank address
             let p = element.css("p")
             if let spans = p.first?.css("span") {
                 if spans.count == 1 {
-                    let whiteSpaces = NSCharacterSet.whitespaceCharacterSet()
                     let crap = NSCharacterSet(charactersInString: "на карте")
                     address = p.text!.stringByTrimmingCharactersInSet(whiteSpaces).stringByTrimmingCharactersInSet(crap)
                 } else if spans.count == 2 {
                     if let span = spans.first {
-                        address = span.text!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+                        address = span.text!.stringByTrimmingCharactersInSet(whiteSpaces)
                     }
                 }
             }
-            println(address)
+//            println(address)
             
             // Get bank working hours
             if let div = element.css("div").first {
-                let whiteSpaces = NSCharacterSet.whitespaceCharacterSet()
                 let crap = NSCharacterSet(charactersInString: "Режим работы:")
                 workingHours = div.text!.stringByTrimmingCharactersInSet(crap)
                 workingHours = workingHours.stringByTrimmingCharactersInSet(whiteSpaces)
@@ -64,35 +69,38 @@ class Bank {
             if workingHours.isEmpty {
                 workingHours = "Не известно"
             }
-            println(workingHours)
         }
     }
     
-    private func parseData(table: XMLElement) {
-        if let cls = table.className {
-            if cls == "table_sales table_border_right" {
-                for row in table.css("tr") {
-                    for td in row.css("td") {
-                        if let td_css_class = td.className {
-                            var counter = 0
-                            switch td_css_class {
-                            case "block_position_center":
-                                switch counter {
-                                case 0: usdSell = makeDouble(td.text)
-                                case 1: usdBuy = makeDouble(td.text)
-                                case 2: eurSell = makeDouble(td.text)
-                                case 3: eurBuy = makeDouble(td.text)
-                                default: break
-                                }
-                                counter++
-                            case "name_bank": parseBankRequisites(td)
-                            default: break
-                            }
-                        }
+    private func parseRow(row: XMLElement) {
+        let cells = row.css("td")
+        var counter = 0
+        for td in cells {
+            if let td_css_class = td.className {
+                
+                switch td_css_class {
+                case "block_position_center":
+                    switch counter {
+                    case 0: usdBuy = makeDouble(td.text)
+                    case 1: usdSell = makeDouble(td.text)
+                    case 2: eurBuy = makeDouble(td.text)
+                    case 3: eurSell = makeDouble(td.text); counter = 0
+                    default: break
                     }
+                    counter++
+                case "name_bank": parseBankRequisites(td)
+                default: break
                 }
+            } else {
+                println("Unknown cell type:\n\(td.text)")
             }
         }
     }
     
+    func isEmpty() -> Bool {
+        var empty = false
+        if address.isEmpty && name.isEmpty { empty = true }
+        
+        return empty
+    }
 }

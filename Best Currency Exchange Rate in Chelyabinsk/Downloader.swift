@@ -9,10 +9,11 @@
 import Foundation
 
 class Downloader {
+    
     var url: NSURL!
     //"http://www.cbr.ru/currency_base/daily.aspx?date_req=15.09.2015"
     //http://www.cbr.ru/scripts/XML_daily.asp
-    
+    private var dataTask:  NSURLSessionDataTask!
     init() {
         url = NSURL(string: "http://chelfin.ru/exchange/exchange.html")
     }
@@ -21,27 +22,36 @@ class Downloader {
         self.url = url
     }
     
+    deinit {
+        if dataTask != nil { dataTask.cancel() }
+    }
+    
     private func parseBanksData(data: NSData, completion: ([AnyObject])->()){
-        var banks = [Bank]()
         if let html = NSString(data: data, encoding: NSWindowsCP1251StringEncoding) {
             if let doc = HTML(html: html as! String, encoding: NSWindowsCP1251StringEncoding) {
                 println(doc.title)
                 // Search for nodes by XPath
                 for table in doc.xpath("//table") {
-                    let bank: Bank = Bank(table: table)
-                    banks.append(bank)
+                    if let cls = table.className {
+                        if cls == "table_sales table_border_right" {
+                            let banks: Banks = Banks(table: table)
+                            dispatch_async(dispatch_get_main_queue()) {
+//                                println("Count: \(banks.banks.count)")
+                                completion(banks.banks)
+                            }
+                        }
+                    }
                 }
             }
         } else {
             println("Cann't convert NSData to NSString")
         }
-        completion(banks)
     }
     
-    func download(completion: ([AnyObject])->()) {
+    func download(completion: ([AnyObject])->()) -> NSURLSessionDataTask {
         
         let session = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        dataTask = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             if let error = error {
                 println(error)
                 abort()
@@ -57,5 +67,6 @@ class Downloader {
         })
         
         dataTask.resume()
+        return dataTask
     }
 }
