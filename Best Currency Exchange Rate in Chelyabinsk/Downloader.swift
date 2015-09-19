@@ -10,16 +10,34 @@ import Foundation
 
 class Downloader {
     
-    var url: NSURL!
-    //"http://www.cbr.ru/currency_base/daily.aspx?date_req=15.09.2015"
-    //http://www.cbr.ru/scripts/XML_daily.asp
+    enum Sourse {
+        case Chelfin
+        case CBRFDaily
+        case CBRFPeriod
+        case AUDITIT
+        
+        var entityValue: NSURL! {
+            switch self {
+            case .Chelfin: return NSURL(string: "http://chelfin.ru/exchange/exchange.html")
+            case .CBRFDaily:
+                //"http://www.cbr.ru/currency_base/daily.aspx?date_req=15.09.2015"
+                return NSURL(string: "http://www.cbr.ru/scripts/XML_daily.asp")
+            default: return NSURL(string: "http://chelfin.ru/exchange/exchange.html")
+            }
+        }
+    }
+    
+    var sourse: Sourse = Sourse.Chelfin
     private var dataTask:  NSURLSessionDataTask!
+    let parameters: [Sourse: AnyObject] = [
+        Sourse.Chelfin: ["encoding": NSWindowsCP1251StringEncoding, "elementName": "//table", "cssClass": "table_sales table_border_right"],
+        Sourse.CBRFDaily: ["encoding": NSWindowsCP1251StringEncoding, "elementName": "//table", "cssClass": "table_sales table_border_right"]
+    ]
     init() {
-        url = NSURL(string: "http://chelfin.ru/exchange/exchange.html")
     }
 
-    init(url: NSURL!) {
-        self.url = url
+    init(sourse: Sourse) {
+        self.sourse = sourse
     }
     
     deinit {
@@ -29,14 +47,36 @@ class Downloader {
     private func parseBanksData(data: NSData, completion: ([AnyObject])->()){
         if let html = NSString(data: data, encoding: NSWindowsCP1251StringEncoding) {
             if let doc = HTML(html: html as! String, encoding: NSWindowsCP1251StringEncoding) {
-                println(doc.title)
+                if DEBUG { println(doc.title) }
                 // Search for nodes by XPath
                 for table in doc.xpath("//table") {
                     if let cls = table.className {
                         if cls == "table_sales table_border_right" {
                             let banks: Banks = Banks(table: table)
                             dispatch_async(dispatch_get_main_queue()) {
-//                                println("Count: \(banks.banks.count)")
+
+                                completion(banks.banks)
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            println("Cann't convert NSData to NSString")
+        }
+    }
+    
+    private func parseCoursesData(data: NSData, completion: ([AnyObject])->()){
+        if let html = NSString(data: data, encoding: NSWindowsCP1251StringEncoding) {
+            if let doc = HTML(html: html as! String, encoding: NSWindowsCP1251StringEncoding) {
+                if DEBUG { println(doc.title) }
+                // Search for nodes by XPath
+                for table in doc.xpath("//div") {
+                    if let cls = table.className {
+                        if cls == "kurs-header rounded-block" {
+                            let banks: Banks = Banks(table: table)
+                            dispatch_async(dispatch_get_main_queue()) {
+                                
                                 completion(banks.banks)
                             }
                         }
@@ -51,7 +91,7 @@ class Downloader {
     func download(completion: ([AnyObject])->()) -> NSURLSessionDataTask {
         
         let session = NSURLSession.sharedSession()
-        dataTask = session.dataTaskWithURL(url!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+        dataTask = session.dataTaskWithURL(sourse.entityValue!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
             if let error = error {
                 println(error)
                 abort()
@@ -60,7 +100,12 @@ class Downloader {
                 if response.statusCode != 200 { println("Error: \(response.statusCode)") }
             }
             if let data = data {
-                self.parseBanksData(data, completion: completion)
+                switch self.sourse {
+                case .Chelfin: self.parseBanksData(data, completion: completion)
+                case .CBRFDaily: self.parseCoursesData(data, completion: completion)
+                default: println("Unallowed choice of sourse: \(self.sourse)")
+                }
+                
             } else {
                 println("Received data parameter is nil")
             }
@@ -68,5 +113,11 @@ class Downloader {
         
         dataTask.resume()
         return dataTask
+    }
+    
+    static func load(completion: ([AnyObject])->()) -> NSURLSessionDataTask {
+        let d = Downloader()
+        
+        return d.download(completion)
     }
 }

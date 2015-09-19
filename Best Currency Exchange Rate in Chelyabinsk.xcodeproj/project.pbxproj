@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D5195ADB1BA9B04000B7E918 /* DailyCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5195ADA1BA9B04000B7E918 /* DailyCourseViewController.swift */; };
+		D5195ADD1BA9B4B300B7E918 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5195ADC1BA9B4B300B7E918 /* Course.swift */; };
+		D5195ADF1BA9B56900B7E918 /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5195ADE1BA9B56900B7E918 /* Courses.swift */; };
+		D51F5A421BA97CFD00A25486 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51F5A411BA97CFD00A25486 /* Global.swift */; };
+		D55451CE1BAD4C120049182B /* RouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451CD1BAD4C120049182B /* RouteBuilder.swift */; };
 		D55648581BA80F3A00EFF0D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */; };
 		D556485A1BA80F3A00EFF0D0 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55648591BA80F3A00EFF0D0 /* FirstViewController.swift */; };
 		D556485C1BA80F3A00EFF0D0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556485B1BA80F3A00EFF0D0 /* SecondViewController.swift */; };
@@ -16,6 +21,7 @@
 		D55648701BA80F3B00EFF0D0 /* Best_Currency_Exchange_Rate_in_ChelyabinskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556486F1BA80F3B00EFF0D0 /* Best_Currency_Exchange_Rate_in_ChelyabinskTests.swift */; };
 		D556487A1BA80F6600EFF0D0 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D55648791BA80F6600EFF0D0 /* libxml2.dylib */; };
 		D556487C1BA80F8F00EFF0D0 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D556487B1BA80F8F00EFF0D0 /* MapKit.framework */; };
+		D5814C821BA96D0D00EBA72C /* Geocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5814C811BA96D0D00EBA72C /* Geocoder.swift */; };
 		D5852AFC1BA8164D00C069D4 /* CSS.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852AFA1BA8164D00C069D4 /* CSS.swift */; };
 		D5852AFD1BA8164D00C069D4 /* Kanna.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852AFB1BA8164D00C069D4 /* Kanna.swift */; };
 		D5852B011BA8166B00C069D4 /* libxmlHTMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852AFE1BA8166B00C069D4 /* libxmlHTMLDocument.swift */; };
@@ -28,6 +34,8 @@
 		D5852B101BA870EA00C069D4 /* Banks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852B0F1BA870EA00C069D4 /* Banks.swift */; };
 		D5852B121BA8882700C069D4 /* BankDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5852B111BA8882700C069D4 /* BankDetailViewController.swift */; };
 		D5CB40311BA9414E0058E8BE /* BankDetailsWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB40301BA9414E0058E8BE /* BankDetailsWebViewController.swift */; };
+		D5CB40331BA947160058E8BE /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB40321BA947160058E8BE /* MapViewController.swift */; };
+		D5CB40351BA956630058E8BE /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CB40341BA956630058E8BE /* Location.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +49,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D5195ADA1BA9B04000B7E918 /* DailyCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCourseViewController.swift; sourceTree = "<group>"; };
+		D5195ADC1BA9B4B300B7E918 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
+		D5195ADE1BA9B56900B7E918 /* Courses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Courses.swift; sourceTree = "<group>"; };
+		D51F5A411BA97CFD00A25486 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
+		D55451CD1BAD4C120049182B /* RouteBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteBuilder.swift; sourceTree = "<group>"; };
 		D55648521BA80F3900EFF0D0 /* Best Currency Exchange Rate in Chelyabinsk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Best Currency Exchange Rate in Chelyabinsk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D55648561BA80F3A00EFF0D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -57,6 +70,7 @@
 		D556487D1BA80FD000EFF0D0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		D556487E1BA80FD000EFF0D0 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D556487F1BA8116B00EFF0D0 /* Kanna-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Kanna-Bridging-Header.h"; sourceTree = "<group>"; };
+		D5814C811BA96D0D00EBA72C /* Geocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geocoder.swift; sourceTree = "<group>"; };
 		D5852AFA1BA8164D00C069D4 /* CSS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSS.swift; sourceTree = "<group>"; };
 		D5852AFB1BA8164D00C069D4 /* Kanna.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kanna.swift; sourceTree = "<group>"; };
 		D5852AFE1BA8166B00C069D4 /* libxmlHTMLDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = libxmlHTMLDocument.swift; sourceTree = "<group>"; };
@@ -69,6 +83,8 @@
 		D5852B0F1BA870EA00C069D4 /* Banks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Banks.swift; sourceTree = "<group>"; };
 		D5852B111BA8882700C069D4 /* BankDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankDetailViewController.swift; sourceTree = "<group>"; };
 		D5CB40301BA9414E0058E8BE /* BankDetailsWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BankDetailsWebViewController.swift; sourceTree = "<group>"; };
+		D5CB40321BA947160058E8BE /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		D5CB40341BA956630058E8BE /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,19 +132,25 @@
 		D55648541BA80F3900EFF0D0 /* Best Currency Exchange Rate in Chelyabinsk */ = {
 			isa = PBXGroup;
 			children = (
-				D5852B0B1BA867DC00C069D4 /* Downloader */,
-				D5852B081BA8565400C069D4 /* Model */,
-				D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */,
-				D5852B0C1BA8680900C069D4 /* Kanna */,
 				D556487F1BA8116B00EFF0D0 /* Kanna-Bridging-Header.h */,
-				D55648591BA80F3A00EFF0D0 /* FirstViewController.swift */,
-				D556485B1BA80F3A00EFF0D0 /* SecondViewController.swift */,
+				D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */,
 				D5CB40301BA9414E0058E8BE /* BankDetailsWebViewController.swift */,
 				D5852B111BA8882700C069D4 /* BankDetailViewController.swift */,
-				D556485D1BA80F3A00EFF0D0 /* Main.storyboard */,
+				D5CB40341BA956630058E8BE /* Location.swift */,
+				D5814C811BA96D0D00EBA72C /* Geocoder.swift */,
+				D55648591BA80F3A00EFF0D0 /* FirstViewController.swift */,
+				D55451CD1BAD4C120049182B /* RouteBuilder.swift */,
+				D5CB40321BA947160058E8BE /* MapViewController.swift */,
+				D556485B1BA80F3A00EFF0D0 /* SecondViewController.swift */,
+				D5195ADA1BA9B04000B7E918 /* DailyCourseViewController.swift */,
 				D55648601BA80F3B00EFF0D0 /* Images.xcassets */,
+				D5852B0B1BA867DC00C069D4 /* Downloader */,
+				D5852B0C1BA8680900C069D4 /* Kanna */,
 				D55648621BA80F3B00EFF0D0 /* LaunchScreen.xib */,
+				D5852B081BA8565400C069D4 /* Model */,
+				D556485D1BA80F3A00EFF0D0 /* Main.storyboard */,
 				D55648551BA80F3900EFF0D0 /* Supporting Files */,
+				D51F5A411BA97CFD00A25486 /* Global.swift */,
 			);
 			path = "Best Currency Exchange Rate in Chelyabinsk";
 			sourceTree = "<group>";
@@ -162,6 +184,8 @@
 			isa = PBXGroup;
 			children = (
 				D5852B091BA8566500C069D4 /* Bank.swift */,
+				D5195ADC1BA9B4B300B7E918 /* Course.swift */,
+				D5195ADE1BA9B56900B7E918 /* Courses.swift */,
 				D5852B0F1BA870EA00C069D4 /* Banks.swift */,
 			);
 			name = Model;
@@ -295,17 +319,25 @@
 			files = (
 				D5CB40311BA9414E0058E8BE /* BankDetailsWebViewController.swift in Sources */,
 				D5852B0E1BA8681F00C069D4 /* Downloader.swift in Sources */,
+				D5195ADF1BA9B56900B7E918 /* Courses.swift in Sources */,
+				D5CB40351BA956630058E8BE /* Location.swift in Sources */,
 				D5852B121BA8882700C069D4 /* BankDetailViewController.swift in Sources */,
 				D5852B051BA816E200C069D4 /* HTMLParser.swift in Sources */,
 				D556485C1BA80F3A00EFF0D0 /* SecondViewController.swift in Sources */,
 				D5852B031BA8166B00C069D4 /* libxmlParserOption.swift in Sources */,
 				D5852B021BA8166B00C069D4 /* libxmlHTMLNode.swift in Sources */,
+				D51F5A421BA97CFD00A25486 /* Global.swift in Sources */,
 				D5852AFC1BA8164D00C069D4 /* CSS.swift in Sources */,
 				D5852AFD1BA8164D00C069D4 /* Kanna.swift in Sources */,
 				D5852B011BA8166B00C069D4 /* libxmlHTMLDocument.swift in Sources */,
+				D55451CE1BAD4C120049182B /* RouteBuilder.swift in Sources */,
+				D5195ADD1BA9B4B300B7E918 /* Course.swift in Sources */,
 				D5852B0A1BA8566500C069D4 /* Bank.swift in Sources */,
 				D5852B101BA870EA00C069D4 /* Banks.swift in Sources */,
+				D5814C821BA96D0D00EBA72C /* Geocoder.swift in Sources */,
 				D55648581BA80F3A00EFF0D0 /* AppDelegate.swift in Sources */,
+				D5CB40331BA947160058E8BE /* MapViewController.swift in Sources */,
+				D5195ADB1BA9B04000B7E918 /* DailyCourseViewController.swift in Sources */,
 				D556485A1BA80F3A00EFF0D0 /* FirstViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

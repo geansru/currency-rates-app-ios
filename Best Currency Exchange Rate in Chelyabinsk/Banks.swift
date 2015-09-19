@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+import CoreLocation
 class Banks {
     var banks = [Bank]()
     init(table: XMLElement) {
@@ -18,8 +18,11 @@ class Banks {
         let rows = table.css("tr")
         var counter = 0
         for row in rows {
-            let b = Bank(row: row)
-            if !b.isEmpty() { banks.append(b) }
+            let bank = Bank(row: row)
+            if !bank.isEmpty() {
+                banks.append(bank)
+                bank.makeCoordinates()
+            }
         }
     }
 }

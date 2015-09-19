@@ -15,7 +15,7 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         load()
-        title = "Мгновенный курс доллара на Forex"
+        title = "USD Forex график"
         webView.delegate = self
     }
 
@@ -24,6 +24,12 @@ class SecondViewController: UIViewController {
             let request = NSURLRequest(URL: url)
             webView.loadRequest(request)
         }
+    }
+}
+
+extension SecondViewController: UINavigationBarDelegate {
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return .TopAttached
     }
 }
 

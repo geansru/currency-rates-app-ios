@@ -14,37 +14,80 @@ class FirstViewController: UIViewController {
     // MARK: - Properties
     var banks = [Bank]()
     var task: NSURLSessionDataTask!
+    
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var marketSegmantedControl: UISegmentedControl!
+    @IBOutlet weak var currencySegmentedControl: UISegmentedControl!
+    
+    // MARK: - IBActions
     @IBAction func reload(sender: AnyObject) {
         clear()
-        load()
-    }
-    
-    // MARK: - Lifecycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        load()
-        tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 64, right: 0)
-    }
-    
-    // MARK: - Helpers
-    private func load() {
-        let d = Downloader()
         let completion: ([AnyObject])->() = { results in
             if let banks = results as? [Bank] {
                 self.banks = banks
                 self.tableView.reloadData()
             }
         }
-        task = d.download(completion)
+        task = Downloader.load(completion)
     }
     
+    @IBAction func currencySegmentControlChanged(sender: UISegmentedControl) {
+        sortBanks()
+    }
+    
+    @IBAction func marketSegmentControlChanged(sender: UISegmentedControl) {
+        sortBanks()
+        tableView.reloadData()
+    }
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 64, right: 0)
+        tableView.rowHeight = 88
+    }
+    
+    // MARK: - Helpers
     private func clear() {
         if task != nil { task.cancel() }
         banks = [Bank]()
         tableView.reloadData()
+    }
+    
+    func sortBanks() {
+        if !banks.isEmpty {
+            banks.sort({ (bank1: Bank, bank2: Bank) -> Bool in
+                switch self.currencySegmentedControl.selectedSegmentIndex {
+                case 1:
+                    switch self.marketSegmantedControl.selectedSegmentIndex {
+                    case 1: return bank1.usdSell > bank2.usdSell
+                    default: return bank1.usdBuy > bank2.usdBuy
+                    }
+                case 2:
+                    switch self.marketSegmantedControl.selectedSegmentIndex {
+                    case 1: return bank1.eurSell > bank2.eurSell
+                    default: return bank1.eurBuy > bank2.eurBuy
+                    }
+                    
+                    
+                case 3:
+                    switch self.marketSegmantedControl.selectedSegmentIndex {
+                    case 1: return bank1.eurSell < bank2.eurSell
+                    default: return bank1.eurBuy < bank2.eurBuy
+                    }
+
+                    
+                default:
+                    switch self.marketSegmantedControl.selectedSegmentIndex {
+                    case 1: return bank1.usdSell < bank2.usdSell
+                    default: return bank1.usdBuy < bank2.usdBuy
+                    }
+                }
+                
+            })
+            tableView.reloadData()
+        }
     }
     
     // MARK: Navigation
@@ -72,8 +115,17 @@ class FirstViewController: UIViewController {
     }
 }
 
+extension FirstViewController: UINavigationBarDelegate {
+    func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
+        return .TopAttached
+    }
+}
 extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - UITableViewDataSource
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return banks.count
     }
@@ -88,9 +140,43 @@ extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
             cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
         }
         let bank = banks[indexPath.row]
-        let index = indexPath.row.description
-        cell.textLabel?.text = index + ". " + bank.name
-        cell.detailTextLabel?.text = bank.address
+        makeTitle(bank, label: cell.textLabel!)
+        makeSubTitle(bank, label: cell.detailTextLabel!)
         return cell
+    }
+    
+    // MARK: UITableViewDataSource Helper
+    func makeTitle(bank: Bank, label: UILabel) {
+        let name = bank.name.uppercaseString
+        let address = bank.address.capitalizedString
+        label.text = String(format: "%@\n(%@)", name, address)
+    }
+    
+    func makeSubTitle(bank: Bank, label: UILabel) {
+        label.text = bank.subtitle!
+    }
+    
+    func getformatUSDString(bank: Bank) -> String {
+        switch marketSegmantedControl.selectedSegmentIndex {
+        case 1:
+            let format = "Покупка USD %.2f"
+            return String(format: format, bank.usdBuy)
+        default:
+            let format = "Продажа USD %.2f"
+            return String(format: format, bank.usdSell)
+        }
+        
+    }
+    
+    func getformatEURString(bank: Bank) -> String {
+        switch marketSegmantedControl.selectedSegmentIndex {
+        case 1:
+            let format = "Покупка EUR %.2f"
+            return String(format: format, bank.eurBuy)
+        default:
+            let format = "Продажа EUR %.2f"
+            return String(format: format, bank.eurSell)
+        }
+        
     }
 }

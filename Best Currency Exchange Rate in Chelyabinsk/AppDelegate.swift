@@ -7,15 +7,46 @@
 //
 
 import UIKit
-
+import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    // MARK: - Properties
+    // Controllers
+    var firstViewController: FirstViewController!
+    var mapViewController: MapViewController!
     var window: UIWindow?
-
-
+    var banks: [Bank] = [Bank]() {
+        didSet {
+            firstViewController?.banks = banks
+            firstViewController?.tableView.reloadData()
+            firstViewController?.task = taskBanks
+            mapViewController?.banks = banks
+        }
+    }
+    var taskBanks: NSURLSessionDataTask!
+    
+    
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        let tabBarController = window!.rootViewController as! UITabBarController
+        
+        if let tabBarViewControllers = tabBarController.viewControllers {
+            let firstNavController = tabBarViewControllers[0] as! UINavigationController
+            if let firstViewController = firstNavController.topViewController as? FirstViewController {
+                self.firstViewController = firstViewController
+            }
+            
+            let mapNavController = tabBarViewControllers[2] as! UINavigationController
+            if let mapViewController = firstNavController.topViewController as? MapViewController {
+                self.mapViewController = mapViewController
+            }
+        }
+        let completion: ([AnyObject])->() = { results in
+            if let banks = results as? [Bank] {
+                self.banks = banks
+            }
+        }
+        taskBanks = Downloader.load(completion)
         return true
     }
 

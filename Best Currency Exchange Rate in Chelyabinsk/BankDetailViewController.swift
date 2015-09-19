@@ -32,15 +32,46 @@ class BankDetailViewController: UITableViewController {
         updateUI()
     }
 
-    /*
-    // MARK: - Navigation
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch (indexPath.section, indexPath.row) {
+        case (1, 1):
+            let title = "Позвонить в банк"
+            let message = "Вы действительно хотите позвонить в \(bank.name)?"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            let cancel = UIAlertAction(title: "Отмена", style: UIAlertActionStyle.Cancel, handler: nil)
+            for phone in self.bank.phones {
+                let aux1 = phone.componentsSeparatedByString(" ")[0]
+                let aux2 = aux1.componentsSeparatedByString("-")
+                let aux3 = "".join(aux2)
+                let path = "tel://8351\(aux3)"
+                if let url = NSURL(string: path) {
+                    
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+                    let ok = UIAlertAction(title: "\(phone)", style: UIAlertActionStyle.Default, handler: { _ in
+                        println(path)
+                        let application:UIApplication = UIApplication.sharedApplication()
+                        if (application.canOpenURL(url)) {
+                            application.openURL(url)
+                        } else {
+                            println("Cann't open URL")
+                        }
+                    })
+                    alert.addAction(ok)
+                }
+            }
+            alert.addAction(cancel)
+            presentViewController(alert, animated: true, completion: nil)
+        default: break
+        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-    */
+    
+    // MARK: - Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let controller = segue.destinationViewController as? BankDetailsWebViewController {
+            controller.path = bank.uri
+        }
+    }
     
     // MARK: - Helpers
     private func setCourse(course: Double, label: UILabel) {
@@ -61,6 +92,7 @@ class BankDetailViewController: UITableViewController {
             addressLabel.text = bank.address
             workingHoursLabel.text = bank.workingHours
             title = bank.name
+            phonesLabel.text = ", ".join(bank.phones)
         }
     }
 }
