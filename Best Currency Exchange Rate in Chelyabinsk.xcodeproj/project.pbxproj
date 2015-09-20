@@ -8,10 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D5195ADB1BA9B04000B7E918 /* DailyCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5195ADA1BA9B04000B7E918 /* DailyCourseViewController.swift */; };
-		D5195ADD1BA9B4B300B7E918 /* Course.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5195ADC1BA9B4B300B7E918 /* Course.swift */; };
-		D5195ADF1BA9B56900B7E918 /* Courses.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5195ADE1BA9B56900B7E918 /* Courses.swift */; };
 		D51F5A421BA97CFD00A25486 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51F5A411BA97CFD00A25486 /* Global.swift */; };
 		D55451CE1BAD4C120049182B /* RouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451CD1BAD4C120049182B /* RouteBuilder.swift */; };
+		D55451D01BAD821D0049182B /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451CF1BAD821D0049182B /* Currency.swift */; };
+		D55451D21BAD82EC0049182B /* CurrencySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451D11BAD82EC0049182B /* CurrencySet.swift */; };
 		D55648581BA80F3A00EFF0D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */; };
 		D556485A1BA80F3A00EFF0D0 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55648591BA80F3A00EFF0D0 /* FirstViewController.swift */; };
 		D556485C1BA80F3A00EFF0D0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556485B1BA80F3A00EFF0D0 /* SecondViewController.swift */; };
@@ -50,10 +50,10 @@
 
 /* Begin PBXFileReference section */
 		D5195ADA1BA9B04000B7E918 /* DailyCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DailyCourseViewController.swift; sourceTree = "<group>"; };
-		D5195ADC1BA9B4B300B7E918 /* Course.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Course.swift; sourceTree = "<group>"; };
-		D5195ADE1BA9B56900B7E918 /* Courses.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Courses.swift; sourceTree = "<group>"; };
 		D51F5A411BA97CFD00A25486 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		D55451CD1BAD4C120049182B /* RouteBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteBuilder.swift; sourceTree = "<group>"; };
+		D55451CF1BAD821D0049182B /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		D55451D11BAD82EC0049182B /* CurrencySet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencySet.swift; sourceTree = "<group>"; };
 		D55648521BA80F3900EFF0D0 /* Best Currency Exchange Rate in Chelyabinsk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Best Currency Exchange Rate in Chelyabinsk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D55648561BA80F3A00EFF0D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -184,9 +184,9 @@
 			isa = PBXGroup;
 			children = (
 				D5852B091BA8566500C069D4 /* Bank.swift */,
-				D5195ADC1BA9B4B300B7E918 /* Course.swift */,
-				D5195ADE1BA9B56900B7E918 /* Courses.swift */,
+				D55451CF1BAD821D0049182B /* Currency.swift */,
 				D5852B0F1BA870EA00C069D4 /* Banks.swift */,
+				D55451D11BAD82EC0049182B /* CurrencySet.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -319,7 +319,6 @@
 			files = (
 				D5CB40311BA9414E0058E8BE /* BankDetailsWebViewController.swift in Sources */,
 				D5852B0E1BA8681F00C069D4 /* Downloader.swift in Sources */,
-				D5195ADF1BA9B56900B7E918 /* Courses.swift in Sources */,
 				D5CB40351BA956630058E8BE /* Location.swift in Sources */,
 				D5852B121BA8882700C069D4 /* BankDetailViewController.swift in Sources */,
 				D5852B051BA816E200C069D4 /* HTMLParser.swift in Sources */,
@@ -328,10 +327,11 @@
 				D5852B021BA8166B00C069D4 /* libxmlHTMLNode.swift in Sources */,
 				D51F5A421BA97CFD00A25486 /* Global.swift in Sources */,
 				D5852AFC1BA8164D00C069D4 /* CSS.swift in Sources */,
+				D55451D21BAD82EC0049182B /* CurrencySet.swift in Sources */,
 				D5852AFD1BA8164D00C069D4 /* Kanna.swift in Sources */,
 				D5852B011BA8166B00C069D4 /* libxmlHTMLDocument.swift in Sources */,
 				D55451CE1BAD4C120049182B /* RouteBuilder.swift in Sources */,
-				D5195ADD1BA9B4B300B7E918 /* Course.swift in Sources */,
+				D55451D01BAD821D0049182B /* Currency.swift in Sources */,
 				D5852B0A1BA8566500C069D4 /* Bank.swift in Sources */,
 				D5852B101BA870EA00C069D4 /* Banks.swift in Sources */,
 				D5814C821BA96D0D00EBA72C /* Geocoder.swift in Sources */,
@@ -476,6 +476,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Best Currency Exchange Rate in Chelyabinsk/Kanna-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -492,6 +493,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Best Currency Exchange Rate in Chelyabinsk/Kanna-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

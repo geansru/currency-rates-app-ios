@@ -10,13 +10,12 @@ import UIKit
 
 class DailyCourseViewController: UITableViewController {
 
-    var courseUSD: Double!
-    var courseEUR: Double!
-    var template: String = "%.2fР"
+    var setCBRF: CurrencySet!
     @IBOutlet weak var dailyUSDLabel: UILabel!
     @IBOutlet weak var dailyEURLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        getCourse()
     }
 
     // MARK: - Table view data source
@@ -32,5 +31,25 @@ class DailyCourseViewController: UITableViewController {
     */
     
     // MARK: Helper
+    
+    func updateUI() {
+        println(__FUNCTION__)
+        dailyUSDLabel.text = setCBRF?.getUSDCourse().description
+        dailyEURLabel.text = setCBRF?.getEURCourse().description
+    }
+    private func getCourse() {
+        let d = Downloader()
+        d.sourse = Downloader.Sourse.CBRFDaily
+        let onReady: ([AnyObject])->() = { result in
+            if let aux = result as? [CurrencySet] {
+                if let aux_set = aux.first {
+                    if DEBUG { println("\(__FUNCTION__): in closure onReady: ")}
+                    self.setCBRF = aux_set
+                }
+            }
+            if let set = self.setCBRF { self.updateUI() }
+        }
+        d.download(onReady)
 
+    }
 }

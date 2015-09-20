@@ -11,13 +11,37 @@ import UIKit
 
 class FirstViewController: UIViewController {
 
+    enum SortingCases {
+        case BuyUSD([Bank])
+        case SellUSD([Bank])
+        case BuyEUR([Bank])
+        case SellEUR([Bank])
+        
+        var entityValue: [Bank] {
+            switch self {
+            case .BuyEUR(var list):
+                list.sort({ (b1: Bank, b2: Bank) -> Bool in return b1.eurSell < b2.eurSell })
+                return list
+            case .SellEUR(var list):
+                list.sort({ (b1: Bank, b2: Bank) -> Bool in return b1.eurBuy > b2.eurBuy })
+                return list
+            case .BuyUSD(var list) :
+                list.sort({ (b1: Bank, b2: Bank) -> Bool in return  b1.usdSell < b2.usdSell })
+                return list
+            case .SellUSD(var list):
+                list.sort({ (b1: Bank, b2: Bank) -> Bool in return b1.usdBuy > b2.usdBuy })
+                return list
+            }
+        }
+    }
+    
     // MARK: - Properties
     var banks = [Bank]()
     var task: NSURLSessionDataTask!
+    var sortingCase: SortingCases!
     
     // MARK: - IBOutlets
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var marketSegmantedControl: UISegmentedControl!
     @IBOutlet weak var currencySegmentedControl: UISegmentedControl!
     
     // MARK: - IBActions
@@ -26,7 +50,7 @@ class FirstViewController: UIViewController {
         let completion: ([AnyObject])->() = { results in
             if let banks = results as? [Bank] {
                 self.banks = banks
-                self.tableView.reloadData()
+                self.sortBanks()
             }
         }
         task = Downloader.load(completion)
@@ -36,16 +60,14 @@ class FirstViewController: UIViewController {
         sortBanks()
     }
     
-    @IBAction func marketSegmentControlChanged(sender: UISegmentedControl) {
-        sortBanks()
-        tableView.reloadData()
-    }
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-        tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 64, right: 0)
-        tableView.rowHeight = 88
+        title = "Домой"
+//        tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 64, right: 0)
+        tableView.rowHeight = 64
+        sortingCase = SortingCases.BuyUSD(banks)
+        reloadAfterSorting()
     }
     
     // MARK: - Helpers
@@ -55,38 +77,26 @@ class FirstViewController: UIViewController {
         tableView.reloadData()
     }
     
+    func reloadAfterSorting() {
+        banks = sortingCase.entityValue
+        tableView.reloadData()
+    }
+    
     func sortBanks() {
-        if !banks.isEmpty {
-            banks.sort({ (bank1: Bank, bank2: Bank) -> Bool in
-                switch self.currencySegmentedControl.selectedSegmentIndex {
-                case 1:
-                    switch self.marketSegmantedControl.selectedSegmentIndex {
-                    case 1: return bank1.usdSell > bank2.usdSell
-                    default: return bank1.usdBuy > bank2.usdBuy
-                    }
-                case 2:
-                    switch self.marketSegmantedControl.selectedSegmentIndex {
-                    case 1: return bank1.eurSell > bank2.eurSell
-                    default: return bank1.eurBuy > bank2.eurBuy
-                    }
-                    
-                    
-                case 3:
-                    switch self.marketSegmantedControl.selectedSegmentIndex {
-                    case 1: return bank1.eurSell < bank2.eurSell
-                    default: return bank1.eurBuy < bank2.eurBuy
-                    }
-
-                    
-                default:
-                    switch self.marketSegmantedControl.selectedSegmentIndex {
-                    case 1: return bank1.usdSell < bank2.usdSell
-                    default: return bank1.usdBuy < bank2.usdBuy
-                    }
-                }
-                
-            })
-            tableView.reloadData()
+        switch currencySegmentedControl.selectedSegmentIndex {
+        case 0: // Пользователь хочет купить USD
+            sortingCase = SortingCases.BuyUSD(banks)
+            reloadAfterSorting()
+        case 1: // Пользователь хочет продать USD
+            sortingCase = SortingCases.SellUSD(banks)
+            reloadAfterSorting()
+        case 2: // Пользователь хочет купить EUR
+            sortingCase = SortingCases.BuyEUR(banks)
+            reloadAfterSorting()
+        case 3: // Пользователь хочет продать USD
+            sortingCase = SortingCases.SellEUR(banks)
+            reloadAfterSorting()
+        default: println("Unknown case. (currencySegmentedControl): \(currencySegmentedControl)")
         }
     }
     
@@ -153,30 +163,26 @@ extension FirstViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func makeSubTitle(bank: Bank, label: UILabel) {
-        label.text = bank.subtitle!
+        label.text = getformatString(bank)
     }
     
-    func getformatUSDString(bank: Bank) -> String {
-        switch marketSegmantedControl.selectedSegmentIndex {
-        case 1:
-            let format = "Покупка USD %.2f"
-            return String(format: format, bank.usdBuy)
-        default:
-            let format = "Продажа USD %.2f"
+    func getformatString(bank: Bank) -> String {
+        switch currencySegmentedControl.selectedSegmentIndex {
+        case 0:
+            let format = "1 USD = %.2fP"
             return String(format: format, bank.usdSell)
+        case 1:
+            let format = "1 USD = %.2fP"
+            return String(format: format, bank.usdBuy)
+        case 2:
+            let format = "1 EUR = %.2fP"
+            return String(format: format, bank.eurSell)
+        case 3:
+            let format = "1 EUR = %.2fP"
+            return String(format: format, bank.eurBuy)
+        default: println("Unknown selectedSegment: \(currencySegmentedControl.selectedSegmentIndex)")
         }
-        
+        return ""
     }
     
-    func getformatEURString(bank: Bank) -> String {
-        switch marketSegmantedControl.selectedSegmentIndex {
-        case 1:
-            let format = "Покупка EUR %.2f"
-            return String(format: format, bank.eurBuy)
-        default:
-            let format = "Продажа EUR %.2f"
-            return String(format: format, bank.eurSell)
-        }
-        
-    }
 }

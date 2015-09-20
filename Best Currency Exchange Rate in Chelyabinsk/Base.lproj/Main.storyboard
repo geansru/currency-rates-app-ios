@@ -20,21 +20,20 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="q2l-wl-9VI" detailTextLabel="fD2-XV-hLO" rowHeight="88" style="IBUITableViewCellStyleSubtitle" id="jPa-AG-agU">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" textLabel="q2l-wl-9VI" detailTextLabel="fD2-XV-hLO" rowHeight="62" style="IBUITableViewCellStyleValue1" id="jPa-AG-agU">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jPa-AG-agU" id="2Al-CD-Ft4">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="11" id="q2l-wl-9VI">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q2l-wl-9VI">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" alpha="0.59999999999999964" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fD2-XV-hLO">
+                                                <label opaque="NO" multipleTouchEnabled="YES" alpha="0.59999999999999964" contentMode="left" text="Курс" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fD2-XV-hLO">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -60,27 +59,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="RA6-bK-8ad">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" style="plain" id="IhJ-Lr-dLO">
-                            <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="WfQ-Cy-m5H">
-                                <rect key="frame" x="-61" y="-14" width="133" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="Покупка"/>
-                                    <segment title="Продажа"/>
-                                </segments>
-                                <connections>
-                                    <action selector="marketSegmentControlChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="EnO-1g-8Zs"/>
-                                </connections>
-                            </segmentedControl>
-                        </barButtonItem>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="ey5-sa-rQ5">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" id="ey5-sa-rQ5">
+                            <rect key="frame" x="100.5" y="7" width="399" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <segments>
-                                <segment title="$▲"/>
-                                <segment title="$▼"/>
-                                <segment title="€▲"/>
-                                <segment title="€▼"/>
+                                <segment title="$ Купить"/>
+                                <segment title="$ Продать"/>
+                                <segment title="€ Купить"/>
+                                <segment title="€ Продать"/>
                             </segments>
                             <connections>
                                 <action selector="currencySegmentControlChanged:" destination="9pv-A4-QxB" eventType="valueChanged" id="GKO-9P-QDN"/>
@@ -94,7 +80,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="currencySegmentedControl" destination="ey5-sa-rQ5" id="2YL-XR-nmS"/>
-                        <outlet property="marketSegmantedControl" destination="WfQ-Cy-m5H" id="fdQ-tD-Y4x"/>
                         <outlet property="tableView" destination="5WE-cb-EW8" id="c0M-bJ-ziy"/>
                     </connections>
                 </viewController>
@@ -406,11 +391,11 @@
             </objects>
             <point key="canvasLocation" x="26" y="1258"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Список-->
         <scene sceneID="TFv-MU-Ycy">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8AD-4u-Lhc" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="topRated" id="acW-dT-cKf"/>
+                    <tabBarItem key="tabBarItem" title="Список" image="Home" id="acW-dT-cKf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="GMs-5K-lxi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -425,11 +410,11 @@
             </objects>
             <point key="canvasLocation" x="750" y="-320"/>
         </scene>
-        <!--Charts-->
+        <!--График-->
         <scene sceneID="FPb-8M-Qqh">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RTM-Pa-cNO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Charts" image="second" id="cPa-gy-q4n"/>
+                    <tabBarItem key="tabBarItem" title="График" image="BarChart" id="cPa-gy-q4n"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FkM-RR-wwg">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -488,7 +473,7 @@
         <scene sceneID="V3I-n0-bdt">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jOk-rd-Gb5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Карта" image="second" id="PNn-DJ-WUu"/>
+                    <tabBarItem key="tabBarItem" title="Карта" image="Map" id="PNn-DJ-WUu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vMo-7O-emS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -696,7 +681,7 @@
         <scene sceneID="N9X-Ls-ray">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="CGu-gM-7WL" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Курс ЦБ РФ" id="JHb-k1-jFG"/>
+                    <tabBarItem key="tabBarItem" title="Курс ЦБ РФ" image="Bank" id="JHb-k1-jFG"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="h3e-s8-za4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -713,10 +698,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="second" width="30" height="30"/>
+        <image name="Bank" width="25" height="23"/>
+        <image name="BarChart" width="22" height="24"/>
+        <image name="Home" width="26" height="24"/>
+        <image name="Map" width="27" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Con-dE-oW6"/>
         <segue reference="zaO-KY-fLa"/>
+        <segue reference="Con-dE-oW6"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -148,10 +148,11 @@ class Bank: NSObject, MKAnnotation {
                     case 0: usdBuy = makeDouble(td.text)
                     case 1: usdSell = makeDouble(td.text)
                     case 2: eurBuy = makeDouble(td.text)
-                    case 3: eurSell = makeDouble(td.text); counter = 0
+                    case 3: eurSell = makeDouble(td.text);
                     default: break
                     }
                     counter++
+                    if counter > 3 { counter = 0 }
                 case "name_bank": parseBankRequisites(td)
                 default: break
                 }

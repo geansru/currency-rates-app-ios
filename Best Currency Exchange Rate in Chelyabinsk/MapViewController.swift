@@ -11,6 +11,7 @@ import MapKit
 import CoreData
 
 class MapViewController: UIViewController {
+    // MARK: - @IBOutlets
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var getButton: UIBarButtonItem!
     
@@ -18,7 +19,9 @@ class MapViewController: UIViewController {
     var banks = [Bank]()
     var task: NSURLSessionDataTask!
     var location = Location()
+    var routeBuilder: RouteBuilder!
     
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -35,6 +38,7 @@ class MapViewController: UIViewController {
         
     }
     
+    // MARK: - @IBActions
     @IBAction func showUser() {
         location.getLocation()
         let region = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, 1000, 1000)
@@ -46,6 +50,7 @@ class MapViewController: UIViewController {
         mapView.setRegion(region, animated: true)
     }
     
+    // MARK: - Helpers
     func tryToGetBanksList() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         if !appDelegate.banks.isEmpty {
@@ -96,25 +101,31 @@ class MapViewController: UIViewController {
         
         return mapView.regionThatFits(region)
     }
-//    
-//    func showLocationDetails(sender: UIButton) {
-//        performSegueWithIdentifier("EditLocation", sender: sender)
-//    }
     
-//    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-//        if segue.identifier == "EditLocation" {
-//            let navigationController = segue.destinationViewController as! UINavigationController
-//            let controller = navigationController.topViewController as! BankDetailViewController
+    func showLocationDetails(sender: UIButton) {
+//        performSegueWithIdentifier("EditLocation", sender: sender)
+        let index = sender.tag
+        let bank = banks[index]
+        let placemark = bank.placemark!
+        routeBuilder = RouteBuilder(controller: self, placemark: placemark)
+        routeBuilder.build()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "EditLocation" {
+            let navigationController = segue.destinationViewController as! UINavigationController
+            let controller = navigationController.topViewController as! BankDetailViewController
 //            controller.managedObjectContext = managedObjectContext
-//            
-//            let button = sender as! UIButton
-//            let location = locations[button.tag]
+            
+            let button = sender as! UIButton
+            let location = banks[button.tag]
 //            controller.locationToEdit = location
-//        }
-//    }
+        }
+    }
 }
 
 extension MapViewController: MKMapViewDelegate {
+    // MARK: - MKMapViewDelegate
     func mapView(mapView: MKMapView!, didUpdateUserLocation userLocation: MKUserLocation!) {
         let centerCoordinate: CLLocationCoordinate2D = mapView.userLocation.coordinate
         let span: MKCoordinateSpan = MKCoordinateSpanMake(0.2, 0.2)

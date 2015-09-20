@@ -13,15 +13,24 @@ class Downloader {
     enum Sourse {
         case Chelfin
         case CBRFDaily
-        case CBRFPeriod
+        case CBRFPeriod(startDate: NSDate, finishDate: NSDate, code: String)
         case AUDITIT
         
         var entityValue: NSURL! {
             switch self {
             case .Chelfin: return NSURL(string: "http://chelfin.ru/exchange/exchange.html")
-            case .CBRFDaily:
-                //"http://www.cbr.ru/currency_base/daily.aspx?date_req=15.09.2015"
-                return NSURL(string: "http://www.cbr.ru/scripts/XML_daily.asp")
+            case .CBRFDaily: return NSURL(string: "http://www.cbr.ru/scripts/XML_daily.asp")
+            case .CBRFPeriod(let startDate, let finishDate, let code):
+                // date boilerplate: 02/03/2001
+                // code boilerplate: R01235
+                let urlPattern = "http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=%@&date_req2=%@&VAL_NM_RQ=%@"
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateStyle = .ShortStyle
+                let start = dateFormatter.stringFromDate(startDate)
+                let finish = dateFormatter.stringFromDate(finishDate)
+                let urlString = String(format: urlPattern, finish, start, code)
+                println(urlString)
+                return NSURL(string: urlString)
             default: return NSURL(string: "http://chelfin.ru/exchange/exchange.html")
             }
         }
@@ -29,10 +38,7 @@ class Downloader {
     
     var sourse: Sourse = Sourse.Chelfin
     private var dataTask:  NSURLSessionDataTask!
-    let parameters: [Sourse: AnyObject] = [
-        Sourse.Chelfin: ["encoding": NSWindowsCP1251StringEncoding, "elementName": "//table", "cssClass": "table_sales table_border_right"],
-        Sourse.CBRFDaily: ["encoding": NSWindowsCP1251StringEncoding, "elementName": "//table", "cssClass": "table_sales table_border_right"]
-    ]
+  
     init() {
     }
 
@@ -44,6 +50,7 @@ class Downloader {
         if dataTask != nil { dataTask.cancel() }
     }
     
+    // + работает
     private func parseBanksData(data: NSData, completion: ([AnyObject])->()){
         if let html = NSString(data: data, encoding: NSWindowsCP1251StringEncoding) {
             if let doc = HTML(html: html as! String, encoding: NSWindowsCP1251StringEncoding) {
@@ -66,6 +73,7 @@ class Downloader {
         }
     }
     
+    // FIXME: Сделать загрузку курса каждые 15 минут
     private func parseCoursesData(data: NSData, completion: ([AnyObject])->()){
         if let html = NSString(data: data, encoding: NSWindowsCP1251StringEncoding) {
             if let doc = HTML(html: html as! String, encoding: NSWindowsCP1251StringEncoding) {
@@ -88,36 +96,57 @@ class Downloader {
         }
     }
     
+    private func parseCBRFData(data: NSData, completion: ([AnyObject])->()) {
+        if let doc = XML(xml: data, encoding: NSWindowsCP1251StringEncoding) {
+            let nodeSet = doc.xpath("Valute")
+            let set = CurrencySet(root: nodeSet)
+            dispatch_async(dispatch_get_main_queue()) { completion([set])}
+        } else {
+            println("Cann't parse NSData to XML. \(__FUNCTION__)")
+        }
+    }
+    
     func download(completion: ([AnyObject])->()) -> NSURLSessionDataTask {
-        
-        let session = NSURLSession.sharedSession()
-        dataTask = session.dataTaskWithURL(sourse.entityValue!, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
-            if let error = error {
-                println(error)
-                abort()
-            }
-            if let response = response as? NSHTTPURLResponse {
-                if response.statusCode != 200 { println("Error: \(response.statusCode)") }
-            }
-            if let data = data {
-                switch self.sourse {
-                case .Chelfin: self.parseBanksData(data, completion: completion)
-                case .CBRFDaily: self.parseCoursesData(data, completion: completion)
-                default: println("Unallowed choice of sourse: \(self.sourse)")
+        if let url = sourse.entityValue {
+            let session = NSURLSession.sharedSession()
+            dataTask = session.dataTaskWithURL(url, completionHandler: { (data: NSData!, response: NSURLResponse!, error: NSError!) -> Void in
+                if let error = error {
+                    println(error)
+                    abort()
                 }
-                
-            } else {
-                println("Received data parameter is nil")
-            }
-        })
-        
-        dataTask.resume()
-        return dataTask
+                if let response = response as? NSHTTPURLResponse {
+                    if response.statusCode != 200 { println("Error: \(response.statusCode)") }
+                }
+                if let data = data {
+                    switch self.sourse {
+                    case .Chelfin: self.parseBanksData(data, completion: completion)
+                    case .CBRFDaily: self.parseCBRFData(data, completion: completion)
+                    case .CBRFPeriod(_,_,_):
+                        self.parseCBRFData(data, completion: completion)
+                    default: println("Unallowed choice of sourse: \(self.sourse)")
+                    }
+                    
+                } else {
+                    println("Received data parameter is nil")
+                }
+            })
+            
+            dataTask.resume()
+            return dataTask
+        } else {
+            abort()
+        }
     }
     
     static func load(completion: ([AnyObject])->()) -> NSURLSessionDataTask {
         let d = Downloader()
         
+        return d.download(completion)
+    }
+    
+    static func load(sourse: Downloader.Sourse, completion: ([AnyObject])->()) -> NSURLSessionDataTask {
+        let d = Downloader()
+        d.sourse = sourse
         return d.download(completion)
     }
 }

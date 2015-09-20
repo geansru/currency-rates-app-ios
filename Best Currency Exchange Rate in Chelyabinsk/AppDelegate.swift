@@ -19,7 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var banks: [Bank] = [Bank]() {
         didSet {
             firstViewController?.banks = banks
-            firstViewController?.tableView.reloadData()
+            firstViewController?.sortBanks()
+//            firstViewController?.tableView.reloadData()
             firstViewController?.task = taskBanks
             mapViewController?.banks = banks
         }

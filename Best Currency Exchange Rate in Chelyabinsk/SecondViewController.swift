@@ -15,7 +15,7 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         load()
-        title = "USD Forex график"
+        title = "График"
         webView.delegate = self
     }
 
