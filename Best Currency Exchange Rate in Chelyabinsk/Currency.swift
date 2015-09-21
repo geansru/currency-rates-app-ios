@@ -8,16 +8,18 @@
 
 import Foundation
 
-class Currency {
-    private let template: String = "%.2fР"
-    var numCode: String = "" //036
-    var charCode: String = "" //AUD
-    var nominal: Int = 1
-    var name: String = "" //Австралийский доллар
-    var value: Double = 0.0 //47,8832
-    var date: NSDate = NSDate()
+class Currency: NSObject {
+    
+    var numCode: String // = "" //036
+    var charCode: String // = "" //AUD
+    var nominal: Int // = 1
+    var name: String // = "" //Австралийский доллар
+    var value: Double // = 0.0 //47,8832
+    var date: NSDate // = NSDate()
     
     init(element: XMLElement) {
+        
+        date = NSDate()
         /*
         <Valute ID="R01010">
             <NumCode>036</NumCode>
@@ -27,16 +29,19 @@ class Currency {
             <Value>47,8832</Value>
         </Valute>
         */
-        if let aux = element.xpath("NumCode").text { numCode = aux }
-        if let aux = element.xpath("CharCode").text { charCode = aux }
-        if let aux = element.xpath("Name").text { name = aux }
+        if let aux = element.xpath("NumCode").text { numCode = aux } else { numCode = "" }
+        if let aux = element.xpath("CharCode").text { charCode = aux } else { charCode = "" }
+        if let aux = element.xpath("Name").text { name = aux } else { name = "" }
         if let aux = element.xpath("Nominal").text {
-            if let nominal = aux.toInt() { self.nominal = nominal}
-        }
+            if let nominal = aux.toInt() { self.nominal = nominal} else { nominal = 1 }
+        } else { nominal = 1 }
+        value = 0.0
+        super.init()
         if let aux = element.xpath("Value").text { value = makeDouble(aux) }
+        if DEBUG { println(desc()) }
     }
     
-    func description() -> String {
+    func desc() -> String {
         return  "numCode: \(numCode)\n" +
                 "charCode: \(charCode)\n" +
                 "nominal: \(nominal)\n" +
@@ -44,7 +49,7 @@ class Currency {
                 "value: \(value)\n"
     }
     
-    private func makeDouble(var text: String!) -> Double {
+    func makeDouble(var text: String!) -> Double {
         var result: Double = 0.0
         text = text?.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         text = text?.stringByReplacingOccurrencesOfString(",", withString: ".", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)

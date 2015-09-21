@@ -9,47 +9,131 @@
 import UIKit
 
 class DailyCourseViewController: UITableViewController {
-
+    
+    enum Status {
+        case Initial
+        case Loading
+        case NoResult
+        case Finish(text: String)
+        
+        var entityValue: String {
+            switch self {
+            case .Initial: return "Пока не обновлялось"
+            case .NoResult: return "Не удалось загрузить курсы валют.\nПопробуйте еще раз позже."
+            case .Loading: return "Загружается"
+            case .Finish(let text): return "\(text)"
+            }
+        }
+    }
+    
+    // MARK: - Properties
     var setCBRF: CurrencySet!
+    var setAuditIt: CurrencySet!
+    var momentaryCourseDataTask: NSURLSessionDataTask!
+    var dailyCourseDataTask: NSURLSessionDataTask!
+    var statusMomentary = Status.Initial {
+        didSet {
+            statusMomentaryLabel.text = statusMomentary.entityValue
+        }
+    }
+    
+    // MARK: - @IBOutlets
     @IBOutlet weak var dailyUSDLabel: UILabel!
     @IBOutlet weak var dailyEURLabel: UILabel!
+    @IBOutlet weak var momentaryUSDLabel: UILabel!
+    @IBOutlet weak var momentaryEURLabel: UILabel!
+    @IBOutlet weak var statusMomentaryLabel: UILabel!
+    
+    // MARK: - @IBAction
+    @IBAction func refreshButton(sender: AnyObject) {
+        refresh()
+    }
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        getCourse()
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        refresh()
     }
 
-    // MARK: - Table view data source
-
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        if let identifier = segue.identifier {
+            
+            switch identifier {
+            case "usd":
+                if let controller = segue.destinationViewController as? CBRFCourseViewController {
+                    controller.currency = CurrentCurrency.Currency.USD
+                    controller.getCoursePeriod()
+                }
+            case "eur":
+                if let controller = segue.destinationViewController as? CBRFCourseViewController {
+                    controller.currency = CurrentCurrency.Currency.EUR
+                    controller.getCoursePeriod()
+                }
+            default: println("Unknown identifier: \(identifier)")
+            }
+        }
     }
-    */
     
     // MARK: Helper
+    func debug(set: CurrencySet) { for e in set.set { println(e.desc()) } }
+    func refresh() {
+        updateUI()
+        getCourse()
+        getMomentaryCourse()
+    }
+    
+    private func formatLabelWithDouble(label: UILabel!, value: Double!) {
+        label?.text = String(format: "%.2f", value ?? 0)
+    }
     
     func updateUI() {
-        println(__FUNCTION__)
-        dailyUSDLabel.text = setCBRF?.getUSDCourse().description
-        dailyEURLabel.text = setCBRF?.getEURCourse().description
+        formatLabelWithDouble(dailyUSDLabel, value: setCBRF?.getUSDCourse())
+        formatLabelWithDouble(dailyEURLabel, value: setCBRF?.getEURCourse())
+        formatLabelWithDouble(momentaryEURLabel, value: setAuditIt?.getEURCourse())
+        formatLabelWithDouble(momentaryUSDLabel, value: setAuditIt?.getUSDCourse())
     }
-    private func getCourse() {
+    
+    private func getMomentaryCourse() {
+        momentaryCourseDataTask?.cancel()
+        statusMomentary = .Loading
         let d = Downloader()
-        d.sourse = Downloader.Sourse.CBRFDaily
+        d.sourse = DownloaderSourse.AUDITIT
         let onReady: ([AnyObject])->() = { result in
             if let aux = result as? [CurrencySet] {
                 if let aux_set = aux.first {
-                    if DEBUG { println("\(__FUNCTION__): in closure onReady: ")}
-                    self.setCBRF = aux_set
+                    self.setAuditIt = aux_set
+                    self.statusMomentary = Status.Finish(text: self.setAuditIt.annotation ?? "")
+                } else {
+                    self.statusMomentary = .NoResult
                 }
+            } else {
+                self.statusMomentary = .NoResult
+            }
+            if let set = self.setAuditIt { self.updateUI() }
+            self.momentaryCourseDataTask = nil
+        }
+        momentaryCourseDataTask = d.download(onReady)
+    }
+    
+    private func getCourse() {
+        dailyCourseDataTask?.cancel()
+        let d = Downloader()
+        d.sourse = DownloaderSourse.CBRFDaily
+        let onReady: ([AnyObject])->() = { result in
+            if let aux = result as? [CurrencySet] {
+                if let aux_set = aux.first { self.setCBRF = aux_set }
             }
             if let set = self.setCBRF { self.updateUI() }
+            self.dailyCourseDataTask = nil
         }
-        d.download(onReady)
-
+        dailyCourseDataTask = d.download(onReady)
     }
+    
+    
+    
 }

@@ -20,6 +20,7 @@ class MapViewController: UIViewController {
     var task: NSURLSessionDataTask!
     var location = Location()
     var routeBuilder: RouteBuilder!
+    var showMultipleBanks = true
     
     // MARK: Lifecycle
     override func viewDidLoad() {
@@ -29,9 +30,9 @@ class MapViewController: UIViewController {
         location.controller = self
         
         
-        tryToGetBanksList()
+        if showMultipleBanks { tryToGetBanksList() } else { showMultipleBanks = true }
         if !banks.isEmpty {
-            println("Banks array not empty. Count = \(banks.count)")
+            if DEBUG { println("Banks array not empty. Count = \(banks.count)") }
             updateLocations()
             showLocations()
         }

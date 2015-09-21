@@ -68,8 +68,22 @@ class BankDetailViewController: UITableViewController {
     
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let controller = segue.destinationViewController as? BankDetailsWebViewController {
-            controller.path = bank.uri
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "Map":
+                if let nav_controller = segue.destinationViewController as? UINavigationController {
+                    if let controller = nav_controller.topViewController as? MapViewController {
+                        println(__FUNCTION__)
+                        controller.banks = [bank]
+                        controller.showMultipleBanks = false
+                    }
+                }
+            case "showWebDetails":
+                if let controller = segue.destinationViewController as? BankDetailsWebViewController {
+                    controller.path = bank.uri
+                }
+            default: "Unknown identifier: \(identifier)"
+            }
         }
     }
     

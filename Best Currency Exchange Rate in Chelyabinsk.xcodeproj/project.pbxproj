@@ -12,6 +12,13 @@
 		D55451CE1BAD4C120049182B /* RouteBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451CD1BAD4C120049182B /* RouteBuilder.swift */; };
 		D55451D01BAD821D0049182B /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451CF1BAD821D0049182B /* Currency.swift */; };
 		D55451D21BAD82EC0049182B /* CurrencySet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451D11BAD82EC0049182B /* CurrencySet.swift */; };
+		D55451D41BAEEC9A0049182B /* USD.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451D31BAEEC9A0049182B /* USD.swift */; };
+		D55451D61BAEFDEB0049182B /* CurrentCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451D51BAEFDEB0049182B /* CurrentCurrency.swift */; };
+		D55451D81BAEFE790049182B /* EUR.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451D71BAEFE790049182B /* EUR.swift */; };
+		D55451DA1BAEFF850049182B /* CBRFCourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451D91BAEFF850049182B /* CBRFCourseViewController.swift */; };
+		D55451DC1BAF23FD0049182B /* MomentaryCurrencyUSD.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451DB1BAF23FD0049182B /* MomentaryCurrencyUSD.swift */; };
+		D55451DE1BAF281E0049182B /* MomentaryCurrencyEUR.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451DD1BAF281E0049182B /* MomentaryCurrencyEUR.swift */; };
+		D55451E01BAF3AE90049182B /* SelectPeriodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55451DF1BAF3AE90049182B /* SelectPeriodViewController.swift */; };
 		D55648581BA80F3A00EFF0D0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */; };
 		D556485A1BA80F3A00EFF0D0 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55648591BA80F3A00EFF0D0 /* FirstViewController.swift */; };
 		D556485C1BA80F3A00EFF0D0 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D556485B1BA80F3A00EFF0D0 /* SecondViewController.swift */; };
@@ -54,6 +61,13 @@
 		D55451CD1BAD4C120049182B /* RouteBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteBuilder.swift; sourceTree = "<group>"; };
 		D55451CF1BAD821D0049182B /* Currency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		D55451D11BAD82EC0049182B /* CurrencySet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencySet.swift; sourceTree = "<group>"; };
+		D55451D31BAEEC9A0049182B /* USD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USD.swift; sourceTree = "<group>"; };
+		D55451D51BAEFDEB0049182B /* CurrentCurrency.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentCurrency.swift; sourceTree = "<group>"; };
+		D55451D71BAEFE790049182B /* EUR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EUR.swift; sourceTree = "<group>"; };
+		D55451D91BAEFF850049182B /* CBRFCourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBRFCourseViewController.swift; sourceTree = "<group>"; };
+		D55451DB1BAF23FD0049182B /* MomentaryCurrencyUSD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MomentaryCurrencyUSD.swift; sourceTree = "<group>"; };
+		D55451DD1BAF281E0049182B /* MomentaryCurrencyEUR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MomentaryCurrencyEUR.swift; sourceTree = "<group>"; };
+		D55451DF1BAF3AE90049182B /* SelectPeriodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPeriodViewController.swift; sourceTree = "<group>"; };
 		D55648521BA80F3900EFF0D0 /* Best Currency Exchange Rate in Chelyabinsk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Best Currency Exchange Rate in Chelyabinsk.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D55648561BA80F3A00EFF0D0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +149,7 @@
 				D556487F1BA8116B00EFF0D0 /* Kanna-Bridging-Header.h */,
 				D55648571BA80F3A00EFF0D0 /* AppDelegate.swift */,
 				D5CB40301BA9414E0058E8BE /* BankDetailsWebViewController.swift */,
+				D55451D91BAEFF850049182B /* CBRFCourseViewController.swift */,
 				D5852B111BA8882700C069D4 /* BankDetailViewController.swift */,
 				D5CB40341BA956630058E8BE /* Location.swift */,
 				D5814C811BA96D0D00EBA72C /* Geocoder.swift */,
@@ -142,6 +157,7 @@
 				D55451CD1BAD4C120049182B /* RouteBuilder.swift */,
 				D5CB40321BA947160058E8BE /* MapViewController.swift */,
 				D556485B1BA80F3A00EFF0D0 /* SecondViewController.swift */,
+				D55451DF1BAF3AE90049182B /* SelectPeriodViewController.swift */,
 				D5195ADA1BA9B04000B7E918 /* DailyCourseViewController.swift */,
 				D55648601BA80F3B00EFF0D0 /* Images.xcassets */,
 				D5852B0B1BA867DC00C069D4 /* Downloader */,
@@ -184,7 +200,12 @@
 			isa = PBXGroup;
 			children = (
 				D5852B091BA8566500C069D4 /* Bank.swift */,
+				D55451DB1BAF23FD0049182B /* MomentaryCurrencyUSD.swift */,
+				D55451DD1BAF281E0049182B /* MomentaryCurrencyEUR.swift */,
 				D55451CF1BAD821D0049182B /* Currency.swift */,
+				D55451D31BAEEC9A0049182B /* USD.swift */,
+				D55451D51BAEFDEB0049182B /* CurrentCurrency.swift */,
+				D55451D71BAEFE790049182B /* EUR.swift */,
 				D5852B0F1BA870EA00C069D4 /* Banks.swift */,
 				D55451D11BAD82EC0049182B /* CurrencySet.swift */,
 			);
@@ -320,6 +341,7 @@
 				D5CB40311BA9414E0058E8BE /* BankDetailsWebViewController.swift in Sources */,
 				D5852B0E1BA8681F00C069D4 /* Downloader.swift in Sources */,
 				D5CB40351BA956630058E8BE /* Location.swift in Sources */,
+				D55451DC1BAF23FD0049182B /* MomentaryCurrencyUSD.swift in Sources */,
 				D5852B121BA8882700C069D4 /* BankDetailViewController.swift in Sources */,
 				D5852B051BA816E200C069D4 /* HTMLParser.swift in Sources */,
 				D556485C1BA80F3A00EFF0D0 /* SecondViewController.swift in Sources */,
@@ -327,15 +349,21 @@
 				D5852B021BA8166B00C069D4 /* libxmlHTMLNode.swift in Sources */,
 				D51F5A421BA97CFD00A25486 /* Global.swift in Sources */,
 				D5852AFC1BA8164D00C069D4 /* CSS.swift in Sources */,
+				D55451DA1BAEFF850049182B /* CBRFCourseViewController.swift in Sources */,
 				D55451D21BAD82EC0049182B /* CurrencySet.swift in Sources */,
 				D5852AFD1BA8164D00C069D4 /* Kanna.swift in Sources */,
 				D5852B011BA8166B00C069D4 /* libxmlHTMLDocument.swift in Sources */,
 				D55451CE1BAD4C120049182B /* RouteBuilder.swift in Sources */,
 				D55451D01BAD821D0049182B /* Currency.swift in Sources */,
 				D5852B0A1BA8566500C069D4 /* Bank.swift in Sources */,
+				D55451D81BAEFE790049182B /* EUR.swift in Sources */,
+				D55451D61BAEFDEB0049182B /* CurrentCurrency.swift in Sources */,
+				D55451DE1BAF281E0049182B /* MomentaryCurrencyEUR.swift in Sources */,
 				D5852B101BA870EA00C069D4 /* Banks.swift in Sources */,
+				D55451D41BAEEC9A0049182B /* USD.swift in Sources */,
 				D5814C821BA96D0D00EBA72C /* Geocoder.swift in Sources */,
 				D55648581BA80F3A00EFF0D0 /* AppDelegate.swift in Sources */,
+				D55451E01BAF3AE90049182B /* SelectPeriodViewController.swift in Sources */,
 				D5CB40331BA947160058E8BE /* MapViewController.swift in Sources */,
 				D5195ADB1BA9B04000B7E918 /* DailyCourseViewController.swift in Sources */,
 				D556485A1BA80F3A00EFF0D0 /* FirstViewController.swift in Sources */,

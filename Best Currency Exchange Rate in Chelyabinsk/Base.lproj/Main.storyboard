@@ -273,7 +273,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="jOk-rd-Gb5" kind="presentation" id="zaO-KY-fLa"/>
+                                            <segue destination="jOk-rd-Gb5" kind="show" identifier="Map" id="zaO-KY-fLa"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -429,7 +429,7 @@
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
         </scene>
-        <!--Map View Controller-->
+        <!--Карта-->
         <scene sceneID="emK-jg-edt">
             <objects>
                 <viewController id="OEg-xd-o9Q" customClass="MapViewController" customModule="Best_Currency_Exchange_Rate_in_Chelyabinsk" customModuleProvider="target" sceneMemberID="viewController">
@@ -453,7 +453,7 @@
                             <constraint firstAttribute="bottom" secondItem="CuN-2b-IXF" secondAttribute="bottom" id="jpE-YL-tgn"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="H5J-db-Hzj">
+                    <navigationItem key="navigationItem" title="Карта" id="H5J-db-Hzj">
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="pzK-rL-QJc">
                             <connections>
                                 <action selector="showUser" destination="OEg-xd-o9Q" id="Odt-Zy-DXU"/>
@@ -488,19 +488,33 @@
             </objects>
             <point key="canvasLocation" x="776" y="1052"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Архив курсов ЦБРФ-->
         <scene sceneID="VoA-j2-cOo">
             <objects>
-                <tableViewController id="OAk-qk-Bap" sceneMemberID="viewController">
+                <tableViewController id="OAk-qk-Bap" customClass="CBRFCourseViewController" customModule="Best_Currency_Exchange_Rate_in_Chelyabinsk" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="I1q-wE-MRD">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="auv-BC-mWh">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" textLabel="zLx-Op-obW" detailTextLabel="VJd-su-9Mw" style="IBUITableViewCellStyleValue1" id="auv-BC-mWh">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="auv-BC-mWh" id="csk-GL-IfM">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zLx-Op-obW">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VJd-su-9Mw">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -509,24 +523,87 @@
                             <outlet property="delegate" destination="OAk-qk-Bap" id="QGU-6f-SSa"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="L0L-CM-NdW">
-                        <nil key="title"/>
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="yVY-jB-hAX">
-                            <rect key="frame" x="180" y="7" width="240" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <segments>
-                                <segment title="Архив"/>
-                                <segment title="График"/>
-                            </segments>
-                        </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Даты" id="Xqq-Co-FNZ"/>
+                    <navigationItem key="navigationItem" title="Архив курсов ЦБРФ" id="L0L-CM-NdW">
+                        <barButtonItem key="rightBarButtonItem" title="Даты" id="Xqq-Co-FNZ">
+                            <connections>
+                                <segue destination="Apy-Rp-Hn5" kind="show" id="z28-o9-hFQ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Chu-AC-NOj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2298" y="1718"/>
         </scene>
-        <!--Daily Course View Controller-->
+        <!--Выберите даты для отображения архива-->
+        <scene sceneID="gWL-Ue-mKQ">
+            <objects>
+                <tableViewController title="Выберите даты для отображения архива" id="Apy-Rp-Hn5" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OVZ-UT-7Tq">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection headerTitle="Начало периода" id="MR3-Le-q15">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="163" id="Bjx-gU-lQp">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bjx-gU-lQp" id="kUN-GE-pgP">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZHb-iZ-noR">
+                                                    <rect key="frame" x="0.0" y="1" width="600" height="162"/>
+                                                    <date key="date" timeIntervalSinceReferenceDate="464468324.64784998">
+                                                        <!--2015-09-20 18:58:44 +0000-->
+                                                    </date>
+                                                </datePicker>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ZHb-iZ-noR" firstAttribute="top" secondItem="kUN-GE-pgP" secondAttribute="top" constant="1" id="1o3-EJ-MdB"/>
+                                                <constraint firstAttribute="bottom" secondItem="ZHb-iZ-noR" secondAttribute="bottom" id="NGb-nm-MwC"/>
+                                                <constraint firstItem="ZHb-iZ-noR" firstAttribute="leading" secondItem="kUN-GE-pgP" secondAttribute="leading" id="lG5-bS-KoL"/>
+                                                <constraint firstAttribute="trailing" secondItem="ZHb-iZ-noR" secondAttribute="trailing" id="uOM-c4-5rE"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Конец периода" id="aEg-lz-ec8">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="163" id="jl6-sv-3gg">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jl6-sv-3gg" id="Lag-Dx-5aJ">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="qXZ-6u-FbF">
+                                                    <rect key="frame" x="0.0" y="0.5" width="600" height="162"/>
+                                                    <date key="date" timeIntervalSinceReferenceDate="464468133.05140001">
+                                                        <!--2015-09-20 18:55:33 +0000-->
+                                                    </date>
+                                                </datePicker>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="qXZ-6u-FbF" firstAttribute="top" secondItem="Lag-Dx-5aJ" secondAttribute="top" id="Kln-KE-LfA"/>
+                                                <constraint firstItem="qXZ-6u-FbF" firstAttribute="leading" secondItem="Lag-Dx-5aJ" secondAttribute="leading" id="bPx-sS-zsi"/>
+                                                <constraint firstAttribute="bottom" secondItem="qXZ-6u-FbF" secondAttribute="bottom" id="fyb-P2-ULK"/>
+                                                <constraint firstAttribute="trailing" secondItem="qXZ-6u-FbF" secondAttribute="trailing" id="sWN-7L-z2I"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Apy-Rp-Hn5" id="FaD-8R-WMo"/>
+                            <outlet property="delegate" destination="Apy-Rp-Hn5" id="1qe-7S-cl7"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Avq-BG-6sS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3010" y="1722"/>
+        </scene>
+        <!--Курс Доллара/Евро-->
         <scene sceneID="LJ9-mU-3Oq">
             <objects>
                 <tableViewController id="1bg-pw-9Sw" customClass="DailyCourseViewController" customModule="Best_Currency_Exchange_Rate_in_Chelyabinsk" customModuleProvider="target" sceneMemberID="viewController">
@@ -621,9 +698,23 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="bSi-QI-Gfr" rowHeight="64" style="IBUITableViewCellStyleDefault" id="esL-WV-LBM">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="esL-WV-LBM" id="ZMI-DQ-2fD">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Пока не обновлялось" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bSi-QI-Gfr">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Архив/График" id="Rfv-YH-sfC">
+                            <tableViewSection headerTitle="Архив Курсов" id="Rfv-YH-sfC">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="oy6-3X-BCy" style="IBUITableViewCellStyleDefault" id="dkY-e4-6fQ">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -639,7 +730,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="OAk-qk-Bap" kind="show" id="Con-dE-oW6"/>
+                                            <segue destination="OAk-qk-Bap" kind="show" identifier="usd" id="Con-dE-oW6"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="pv3-dF-5KM" style="IBUITableViewCellStyleDefault" id="G3g-Og-DTc">
@@ -656,7 +747,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="OAk-qk-Bap" kind="show" id="HoL-EC-nRC"/>
+                                            <segue destination="OAk-qk-Bap" kind="show" identifier="eur" id="HoL-EC-nRC"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -667,10 +758,19 @@
                             <outlet property="delegate" destination="1bg-pw-9Sw" id="GdP-XZ-lE7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="slZ-dz-ATS"/>
+                    <navigationItem key="navigationItem" title="Курс Доллара/Евро" id="slZ-dz-ATS">
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="Fiq-T8-0SR">
+                            <connections>
+                                <action selector="refreshButton:" destination="1bg-pw-9Sw" id="nMt-dr-riT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="dailyEURLabel" destination="VqG-D4-T6x" id="1zR-nl-VFJ"/>
                         <outlet property="dailyUSDLabel" destination="cMM-1p-wfo" id="zBa-0N-Xfo"/>
+                        <outlet property="momentaryEURLabel" destination="umS-sG-Avm" id="enA-ld-oxO"/>
+                        <outlet property="momentaryUSDLabel" destination="Bzh-Ki-F2X" id="GsU-bB-8xD"/>
+                        <outlet property="statusMomentaryLabel" destination="bSi-QI-Gfr" id="46d-Bv-mug"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Szn-aM-i8h" userLabel="First Responder" sceneMemberID="firstResponder"/>

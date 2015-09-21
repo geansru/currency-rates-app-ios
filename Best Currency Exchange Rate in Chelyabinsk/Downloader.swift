@@ -8,41 +8,43 @@
 
 import Foundation
 
-class Downloader {
+enum DownloaderSourse {
+    case Chelfin
+    case CBRFDaily
+    case CBRFPeriod(startDate: NSDate, finishDate: NSDate, code: String)
+    case AUDITIT
     
-    enum Sourse {
-        case Chelfin
-        case CBRFDaily
-        case CBRFPeriod(startDate: NSDate, finishDate: NSDate, code: String)
-        case AUDITIT
-        
-        var entityValue: NSURL! {
-            switch self {
-            case .Chelfin: return NSURL(string: "http://chelfin.ru/exchange/exchange.html")
-            case .CBRFDaily: return NSURL(string: "http://www.cbr.ru/scripts/XML_daily.asp")
-            case .CBRFPeriod(let startDate, let finishDate, let code):
-                // date boilerplate: 02/03/2001
-                // code boilerplate: R01235
-                let urlPattern = "http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=%@&date_req2=%@&VAL_NM_RQ=%@"
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateStyle = .ShortStyle
-                let start = dateFormatter.stringFromDate(startDate)
-                let finish = dateFormatter.stringFromDate(finishDate)
-                let urlString = String(format: urlPattern, finish, start, code)
-                println(urlString)
-                return NSURL(string: urlString)
-            default: return NSURL(string: "http://chelfin.ru/exchange/exchange.html")
-            }
+    var entityValue: NSURL! {
+        switch self {
+        case .AUDITIT: return NSURL(string: "http://www.audit-it.ru/currency/")
+        case .Chelfin: return NSURL(string: "http://chelfin.ru/exchange/exchange.html")
+        case .CBRFDaily: return NSURL(string: "http://www.cbr.ru/scripts/XML_daily.asp")
+        case .CBRFPeriod(let startDate, let finishDate, let code):
+            // date boilerplate: 02/03/2001
+            // code boilerplate: R01235
+            let urlPattern = "http://www.cbr.ru/scripts/XML_dynamic.asp?date_req1=%@&date_req2=%@&VAL_NM_RQ=%@"
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy"
+            let start = dateFormatter.stringFromDate(startDate)
+            let finish = dateFormatter.stringFromDate(finishDate)
+            let urlString = String(format: urlPattern, start, finish, code)
+            if !DEBUG { println(urlString) }
+            return NSURL(string: urlString)
+        default: return NSURL(string: "http://chelfin.ru/exchange/exchange.html")
         }
     }
+}
+
+class Downloader {
     
-    var sourse: Sourse = Sourse.Chelfin
+    var sourse: DownloaderSourse
     private var dataTask:  NSURLSessionDataTask!
   
     init() {
+        sourse = DownloaderSourse.Chelfin
     }
 
-    init(sourse: Sourse) {
+    init(sourse: DownloaderSourse) {
         self.sourse = sourse
     }
     
@@ -73,23 +75,12 @@ class Downloader {
         }
     }
     
-    // FIXME: Сделать загрузку курса каждые 15 минут
     private func parseCoursesData(data: NSData, completion: ([AnyObject])->()){
         if let html = NSString(data: data, encoding: NSWindowsCP1251StringEncoding) {
             if let doc = HTML(html: html as! String, encoding: NSWindowsCP1251StringEncoding) {
-                if DEBUG { println(doc.title) }
-                // Search for nodes by XPath
-                for table in doc.xpath("//div") {
-                    if let cls = table.className {
-                        if cls == "kurs-header rounded-block" {
-                            let banks: Banks = Banks(table: table)
-                            dispatch_async(dispatch_get_main_queue()) {
-                                
-                                completion(banks.banks)
-                            }
-                        }
-                    }
-                }
+                let div = doc.xpath("//div")
+                let set: CurrencySet = CurrencySet(nodeSet: div, sourse: sourse)
+                dispatch_async(dispatch_get_main_queue()) { completion([set]) }
             }
         } else {
             println("Cann't convert NSData to NSString")
@@ -99,7 +90,19 @@ class Downloader {
     private func parseCBRFData(data: NSData, completion: ([AnyObject])->()) {
         if let doc = XML(xml: data, encoding: NSWindowsCP1251StringEncoding) {
             let nodeSet = doc.xpath("Valute")
-            let set = CurrencySet(root: nodeSet)
+            let set = CurrencySet(nodeSet: nodeSet)
+            if DEBUG { println(__FUNCTION__); println(sourse.entityValue.description) }
+            dispatch_async(dispatch_get_main_queue()) { completion([set])}
+        } else {
+            println("Cann't parse NSData to XML. \(__FUNCTION__)")
+        }
+    }
+    
+    private func parseCBRFPeriodData(data: NSData, completion: ([AnyObject])->()) {
+        if let doc = XML(xml: data, encoding: NSWindowsCP1251StringEncoding) {
+            let nodeSet = doc.xpath("Record")
+            let set = CurrencySet(nodeSet: nodeSet, sourse: sourse)
+            if DEBUG { println(__FUNCTION__); println(sourse.entityValue.description) }
             dispatch_async(dispatch_get_main_queue()) { completion([set])}
         } else {
             println("Cann't parse NSData to XML. \(__FUNCTION__)")
@@ -119,10 +122,10 @@ class Downloader {
                 }
                 if let data = data {
                     switch self.sourse {
+                    case .AUDITIT: self.parseCoursesData(data, completion: completion)
                     case .Chelfin: self.parseBanksData(data, completion: completion)
                     case .CBRFDaily: self.parseCBRFData(data, completion: completion)
-                    case .CBRFPeriod(_,_,_):
-                        self.parseCBRFData(data, completion: completion)
+                    case .CBRFPeriod(_,_,_): self.parseCBRFPeriodData(data, completion: completion)
                     default: println("Unallowed choice of sourse: \(self.sourse)")
                     }
                     
@@ -144,7 +147,7 @@ class Downloader {
         return d.download(completion)
     }
     
-    static func load(sourse: Downloader.Sourse, completion: ([AnyObject])->()) -> NSURLSessionDataTask {
+    static func load(sourse: DownloaderSourse, completion: ([AnyObject])->()) -> NSURLSessionDataTask {
         let d = Downloader()
         d.sourse = sourse
         return d.download(completion)
