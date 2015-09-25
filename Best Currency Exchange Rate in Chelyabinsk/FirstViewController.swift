@@ -46,14 +46,7 @@ class FirstViewController: UIViewController {
     
     // MARK: - IBActions
     @IBAction func reload(sender: AnyObject) {
-        clear()
-        let completion: ([AnyObject])->() = { results in
-            if let banks = results as? [Bank] {
-                self.banks = banks
-                self.sortBanks()
-            }
-        }
-        task = Downloader.load(completion)
+        reloadRemoteData()
     }
     
     @IBAction func currencySegmentControlChanged(sender: UISegmentedControl) {
@@ -64,10 +57,17 @@ class FirstViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Домой"
-//        tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 64, right: 0)
+        navigationController?.navigationBar.translucent = true
+        navigationController?.navigationBar.opaque = true
         tableView.rowHeight = 64
         sortingCase = SortingCases.BuyUSD(banks)
         reloadAfterSorting()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        if task == nil {
+            reloadRemoteData()
+        }
     }
     
     // MARK: - Helpers
@@ -75,6 +75,17 @@ class FirstViewController: UIViewController {
         if task != nil { task.cancel() }
         banks = [Bank]()
         tableView.reloadData()
+    }
+    
+    func reloadRemoteData() {
+        clear()
+        let completion: ([AnyObject])->() = { results in
+            if let banks = results as? [Bank] {
+                self.banks = banks
+                self.sortBanks()
+            }
+        }
+        task = Downloader.load(completion)
     }
     
     func reloadAfterSorting() {

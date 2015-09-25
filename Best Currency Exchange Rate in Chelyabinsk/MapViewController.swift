@@ -146,19 +146,19 @@ extension MapViewController: MKMapViewDelegate {
                 annotationView.enabled = true
                 annotationView.canShowCallout = true
                 annotationView.animatesDrop = false
-                annotationView.pinColor = .Green
+                annotationView.pinColor = MKPinAnnotationColor.Green
                 annotationView.tintColor = UIColor(white: 0.0, alpha: 0.5)
-                
-                let rightButton = UIButton.buttonWithType(.DetailDisclosure) as! UIButton
+
+                let rightButton = UIButton.buttonWithType(UIButtonType.DetailDisclosure) as! UIButton
                 rightButton.addTarget(self, action: Selector("showLocationDetails:"), forControlEvents: .TouchUpInside)
-                annotationView.rightCalloutAccessoryView = rightButton
+//                annotationView.rightCalloutAccessoryView = rightButton
             } else {
                 annotationView.annotation = annotation
             }
             
-            let button = annotationView.rightCalloutAccessoryView as! UIButton
+//            let button = annotationView.rightCalloutAccessoryView as! UIButton
             if let index = find(banks, annotation as! Bank) {
-                button.tag = index
+//                button.tag = index
             }
             
             return annotationView

@@ -10,6 +10,7 @@ import Foundation
 import CoreLocation
 class Banks {
     var banks = [Bank]()
+    var bestCourse: Double = 0.0
     init(table: XMLElement) {
         parseData(table)
     }

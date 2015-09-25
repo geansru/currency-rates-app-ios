@@ -10,12 +10,46 @@ import UIKit
 
 class CBRFCourseViewController: UITableViewController {
 
+    // MARK: Properties
+    var currency: CurrentCurrency.Currency = CurrentCurrency.Currency.USD
+    var setCBRFPeriod: CurrencySet!
+    var startDate: NSDate
+    var finishDate: NSDate
     
+    // MARK: Constructor
+    required init!(coder aDecoder: NSCoder!) {
+        
+        finishDate = NSDate()
+        startDate = NSDate()
+        super.init(coder: aDecoder)
+        startDate = getMonthAgo()
+    }
     
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
+    // MARK: - Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if let identifier = segue.identifier {
+            switch identifier {
+            case "showDatePickers":
+                if let nav_controller = segue.destinationViewController as? UINavigationController {
+                    if let controller = nav_controller.topViewController as? SelectPeriodViewController {
+                        controller.startDate = startDate
+                        controller.finishDate = finishDate
+                        controller.delegate = self
+                    }
+                }
+            default: println("Unknow identifier: \(identifier)")
+            }
+        } else {
+            println("Unknow identifier.")
+        }
+    }
+
+    // MARK: - TableViewDataSourse
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -34,14 +68,10 @@ class CBRFCourseViewController: UITableViewController {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
 
-    // MARK: Properties
-    var currency: CurrentCurrency.Currency = CurrentCurrency.Currency.USD
-    var setCBRFPeriod: CurrencySet!
-    
     // MARK: - Helpers
     func getCoursePeriod() {
         let d = Downloader()
-        d.sourse = DownloaderSourse.CBRFPeriod(startDate: getMonthAgo(), finishDate: NSDate(), code: currency.entityValue)
+        d.sourse = DownloaderSourse.CBRFPeriod(startDate: startDate, finishDate: finishDate, code: currency.entityValue)
         let onReady: ([AnyObject])->() = { result in
             if let aux = result as? [CurrencySet] {
                 if let aux_set = aux.first { self.setCBRFPeriod = aux_set }
@@ -77,9 +107,9 @@ class CBRFCourseViewController: UITableViewController {
         }
     }
     
-    private func getMonthAgo() -> NSDate {
+    func getMonthAgo() -> NSDate {
         let calendar = NSCalendar.currentCalendar()
-        let date = NSDate()
+        let date = finishDate ?? NSDate()
         
         let components = NSDateComponents()
         components.month = -1
@@ -87,4 +117,17 @@ class CBRFCourseViewController: UITableViewController {
     }
 
     private func debug(set: CurrencySet) { for c in set.set { println(c.desc()) } }
+}
+
+extension CBRFCourseViewController: SelectPeriodViewControllerDelegate {
+    func didCancel(controller: SelectPeriodViewController) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    func didFinishPickingDate(controller: SelectPeriodViewController, forDates startDate: NSDate, endDate: NSDate) {
+        self.startDate = startDate
+        self.finishDate = endDate
+        getCoursePeriod()
+        refresh()
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 }

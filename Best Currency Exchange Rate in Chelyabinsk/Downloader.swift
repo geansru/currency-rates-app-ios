@@ -28,7 +28,7 @@ enum DownloaderSourse {
             let start = dateFormatter.stringFromDate(startDate)
             let finish = dateFormatter.stringFromDate(finishDate)
             let urlString = String(format: urlPattern, start, finish, code)
-            if !DEBUG { println(urlString) }
+            if DEBUG { println(urlString) }
             return NSURL(string: urlString)
         default: return NSURL(string: "http://chelfin.ru/exchange/exchange.html")
         }

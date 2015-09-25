@@ -91,11 +91,39 @@ class DailyCourseViewController: UITableViewController {
         label?.text = String(format: "%.2f", value ?? 0)
     }
     
+    private func formatMomentaryLabelWithDouble(label: UILabel!, value: Double!, daily: Double!) {
+        var text: String
+        let course = String(format: "%.2f", value ?? 0)
+        if value == nil {
+            text = course
+        } else {
+            if let daily = daily {
+                let dailyInt = Int(daily * 100)
+                let momentaryInt = Int(value * 100)
+                let deltaInt = momentaryInt - dailyInt
+                var delta: String
+                if deltaInt >= 0 {
+                    delta = String(format: "+%d", deltaInt)
+                    label.textColor = UIColor.greenColor()
+                } else {
+                    delta = String(format: "%d", deltaInt)
+                    label.textColor = UIColor.redColor()
+                }
+                text = String(format: "%@ (%@)", course, delta)
+            } else {
+                text = course
+            }
+        }
+        label?.text = text
+    }
+    
     func updateUI() {
-        formatLabelWithDouble(dailyUSDLabel, value: setCBRF?.getUSDCourse())
-        formatLabelWithDouble(dailyEURLabel, value: setCBRF?.getEURCourse())
-        formatLabelWithDouble(momentaryEURLabel, value: setAuditIt?.getEURCourse())
-        formatLabelWithDouble(momentaryUSDLabel, value: setAuditIt?.getUSDCourse())
+        let dailyUSD = setCBRF?.getUSDCourse()
+        formatLabelWithDouble(dailyUSDLabel, value: dailyUSD)
+        formatMomentaryLabelWithDouble(momentaryUSDLabel, value: setAuditIt?.getUSDCourse(), daily: dailyUSD)
+        let dailyEUR = setCBRF?.getEURCourse()
+        formatLabelWithDouble(dailyEURLabel, value: dailyEUR)
+        formatMomentaryLabelWithDouble(momentaryEURLabel, value: setAuditIt?.getEURCourse(), daily: dailyEUR)
     }
     
     private func getMomentaryCourse() {

@@ -526,7 +526,7 @@
                     <navigationItem key="navigationItem" title="Архив курсов ЦБРФ" id="L0L-CM-NdW">
                         <barButtonItem key="rightBarButtonItem" title="Даты" id="Xqq-Co-FNZ">
                             <connections>
-                                <segue destination="Apy-Rp-Hn5" kind="show" id="z28-o9-hFQ"/>
+                                <segue destination="Rkg-9U-0aI" kind="presentation" identifier="showDatePickers" id="z28-o9-hFQ"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -538,7 +538,7 @@
         <!--Выберите даты для отображения архива-->
         <scene sceneID="gWL-Ue-mKQ">
             <objects>
-                <tableViewController title="Выберите даты для отображения архива" id="Apy-Rp-Hn5" sceneMemberID="viewController">
+                <tableViewController title="Выберите даты для отображения архива" id="Apy-Rp-Hn5" customClass="SelectPeriodViewController" customModule="Best_Currency_Exchange_Rate_in_Chelyabinsk" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="OVZ-UT-7Tq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -551,10 +551,13 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bjx-gU-lQp" id="kUN-GE-pgP">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZHb-iZ-noR">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZHb-iZ-noR">
                                                     <rect key="frame" x="0.0" y="1" width="600" height="162"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="464468324.64784998">
                                                         <!--2015-09-20 18:58:44 +0000-->
+                                                    </date>
+                                                    <date key="minimumDate" timeIntervalSinceReferenceDate="-31582800">
+                                                        <!--2000-01-01 11:00:00 +0000-->
                                                     </date>
                                                 </datePicker>
                                             </subviews>
@@ -575,10 +578,13 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jl6-sv-3gg" id="Lag-Dx-5aJ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="qXZ-6u-FbF">
+                                                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="qXZ-6u-FbF">
                                                     <rect key="frame" x="0.0" y="0.5" width="600" height="162"/>
                                                     <date key="date" timeIntervalSinceReferenceDate="464468133.05140001">
                                                         <!--2015-09-20 18:55:33 +0000-->
+                                                    </date>
+                                                    <date key="minimumDate" timeIntervalSinceReferenceDate="-31582800">
+                                                        <!--2000-01-01 11:00:00 +0000-->
                                                     </date>
                                                 </datePicker>
                                             </subviews>
@@ -598,10 +604,26 @@
                             <outlet property="delegate" destination="Apy-Rp-Hn5" id="1qe-7S-cl7"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Выберите даты" id="0cC-IX-lhw">
+                        <barButtonItem key="leftBarButtonItem" title="Отмена" id="InG-0M-548">
+                            <connections>
+                                <action selector="onCancel:" destination="Apy-Rp-Hn5" id="qzs-UX-VeF"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Готово" id="RZ3-BJ-nNk">
+                            <connections>
+                                <action selector="onDone:" destination="Apy-Rp-Hn5" id="nMQ-bQ-w5L"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="finishDatePicker" destination="qXZ-6u-FbF" id="Mel-ZS-gdJ"/>
+                        <outlet property="startDatePicker" destination="ZHb-iZ-noR" id="1sR-vl-f04"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Avq-BG-6sS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3010" y="1722"/>
+            <point key="canvasLocation" x="3822" y="1722"/>
         </scene>
         <!--Курс Доллара/Евро-->
         <scene sceneID="LJ9-mU-3Oq">
@@ -612,7 +634,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Курс на сегодня" footerTitle="Обновляется раз в день (12.00 мск)" id="lGd-Cp-4N7">
+                            <tableViewSection headerTitle="Курс ЦБРФ на сегодня" footerTitle="Обновляется 1 раз в день (12.00 мск - пн-пт)" id="lGd-Cp-4N7">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="O3u-OR-9Aq" detailTextLabel="cMM-1p-wfo" style="IBUITableViewCellStyleValue1" id="vxM-Za-SSX">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -656,7 +678,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Мгновенный курс" footerTitle="обновляется каждые 15 минут" id="ecp-39-hia">
+                            <tableViewSection headerTitle="Мгновенный курс на торгах МФСО" footerTitle="обновляется каждые 15 минут" id="ecp-39-hia">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="PVI-hn-L8B" detailTextLabel="Bzh-Ki-F2X" style="IBUITableViewCellStyleValue1" id="h1o-sO-B9z">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -795,6 +817,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ss4-aA-fh9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="774" y="1718"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Vat-Eq-Mdk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Rkg-9U-0aI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LFX-g4-UBd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Apy-Rp-Hn5" kind="relationship" relationship="rootViewController" id="az4-zO-3ZI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Iy9-Np-TYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3010" y="1722"/>
         </scene>
     </scenes>
     <resources>
